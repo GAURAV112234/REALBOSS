@@ -2267,5 +2267,89 @@ var old=window.ppInject;
 window.ppInject=function(t){var r=old?old(t):t,d=(A.get()||{}).design||{};return r.replace('</head>',function(){return font(d)+'<style class="cfgD">'+css(d)+'</style></head>'})};
 })();
 </script>
+<script>
+(function(){
+var A=window.ppAdminAPI;if(!A)return;
+var DEFSYL="EXAM: SSC\nSUBJECT: Quantitative Aptitude\nNumber System\nHCF & LCM\nSimplification & BODMAS\nSquare Roots & Cube Roots\nPercentage\nRatio & Proportion\nAverage\nAges\nProfit & Loss\nDiscount\nSimple Interest\nCompound Interest\nPartnership\nMixture & Alligation\nTime & Work\nPipes & Cisterns\nTime, Speed & Distance\nTrains\nBoats & Streams\nAlgebra\nLinear Equations\nQuadratic Equations\nGeometry: Lines & Triangles\nGeometry: Circles\nQuadrilaterals & Polygons\nMensuration 2D\nMensuration 3D\nTrigonometry\nHeights & Distances\nData Interpretation\nStatistics\nSUBJECT: Reasoning\nAnalogy\nClassification (Odd One Out)\nNumber Series\nLetter Series\nCoding-Decoding\nBlood Relations\nDirection & Distance\nRanking & Order\nSyllogism\nVenn Diagrams\nMathematical Operations\nCalendar\nClock\nMissing Number\nMatrix\nWord Formation\nDictionary Order\nStatement & Conclusions\nCube & Dice\nCounting Figures\nSUBJECT: English\nParts of Speech\nTenses\nSubject-Verb Agreement\nArticles\nPrepositions\nConjunctions\nError Spotting\nSentence Improvement\nFill in the Blanks\nCloze Test\nReading Comprehension\nSynonyms\nAntonyms\nOne Word Substitution\nIdioms & Phrases\nActive & Passive Voice\nDirect & Indirect Speech\nSpelling Correction\nPara Jumbles\nVocabulary Building\nSUBJECT: General Awareness\nAncient History\nMedieval History\nModern History\nIndian Freedom Struggle\nIndian Geography\nWorld Geography\nIndian Polity & Constitution\nIndian Economy\nPhysics Basics\nChemistry Basics\nBiology & Human Body\nEnvironment & Ecology\nArt & Culture\nStatic GK: Books & Authors\nStatic GK: Awards\nStatic GK: Important Days\nStatic GK: National Parks & Sanctuaries\nImportant Organisations\nComputer Basics\nGovernment Schemes";
+function T(){var C=A.get();C.tutor=C.tutor||{};return C.tutor}
+A.TN.push(['tutor','🎓 AI Tutor']);A.TN.push(['subs','👥 Subscribers']);
+A.TABS.tutor=function(){var E=A.E,t=T();
+ return'<p class="hint">A step-by-step AI teacher inside the dashboard, in 14 languages. Students only get the tutor for the exams they subscribed to (add them in the Subscribers tab). Each question costs a little of your Anthropic credit.</p>'+
+ '<div class="cd"><label style="display:block"><input type="checkbox" data-tt="on"'+(t.on===false?'':' checked')+'> Show the AI Tutor in the dashboard</label>'+
+ '<label>Tutor name<input data-tt="name" value="'+E(t.name||'AI Tutor')+'"></label>'+
+ '<label>Teaching style (optional)<textarea rows="3" data-tt="extra" placeholder="e.g. Always give a shortcut. Use small real-life examples.">'+E(t.extra||'')+'</textarea></label></div>'+
+ '<div class="cd"><b>Syllabus the tutor teaches</b><p class="hint">Format: a line <b>EXAM: name</b>, then <b>SUBJECT: name</b>, then one topic per line. Add as many exams as you like (Banking, Railways…). The exam name must match the name you use in Subscribers.</p><textarea rows="14" data-tt="syl">'+E(t.syl||DEFSYL)+'</textarea><p><button data-tt="rs">Reset to default SSC syllabus</button></p></div>'+
+ '<p><button class="pri" data-tt="save">Save and publish</button></p>'};
+document.addEventListener('input',function(e){var t=e.target,k=t.dataset&&t.dataset.tt;if(k&&/^(name|extra|syl)$/.test(k))T()[k]=t.value});
+document.addEventListener('change',function(e){var t=e.target;if(t.dataset&&t.dataset.tt==='on')T().on=t.checked});
+document.addEventListener('click',function(e){var b=e.target.closest&&e.target.closest('button[data-tt]');if(!b)return;if(b.dataset.tt==='save'){A.apply();A.publish()}else if(b.dataset.tt==='rs'){delete T().syl;A.draw()}});
+var SB={list:null,msg:'',email:'',exams:'SSC',months:'12'};
+async function loadSubs(){try{var s=await firebase.firestore().collection('entitlements').get();SB.list=s.docs.map(function(d){return Object.assign({id:d.id},d.data())})}catch(e){SB.msg='Could not load: '+e.message;SB.list=[]}A.draw()}
+A.TABS.subs=function(){var E=A.E;if(SB.list===null){SB.list=[];loadSubs()}
+ return'<p class="hint">Give a student access after they pay. Type the email they log in with, the exam name(s), and how long.</p>'+
+ '<div class="cd"><label>Student email<input data-sb="email" value="'+E(SB.email)+'" placeholder="student@gmail.com"></label><label>Exam(s), comma separated<input data-sb="exams" value="'+E(SB.exams)+'"></label>'+
+ '<label>Access for<select data-sb="months">'+[['1','1 month'],['3','3 months'],['6','6 months'],['12','12 months'],['36','3 years']].map(function(o){return'<option value="'+o[0]+'"'+(SB.months===o[0]?' selected':'')+'>'+o[1]+'</option>'}).join('')+'</select></label><button class="pri" data-sb="add">Give access</button><p class="hint">'+E(SB.msg)+'</p></div>'+
+ '<div class="cd"><b>Subscribers ('+SB.list.length+')</b>'+SB.list.map(function(x,i){return'<p class="hint">'+E(x.email||x.id)+' · '+E((x.exams||[]).join(', '))+' · until '+E(x.until||'no end')+' <button data-sb="del" data-i="'+i+'">Remove</button></p>'}).join('')+'</div>'};
+document.addEventListener('input',function(e){var t=e.target,k=t.dataset&&t.dataset.sb;if(k&&/^(email|exams)$/.test(k))SB[k]=t.value});
+document.addEventListener('change',function(e){var t=e.target;if(t.dataset&&t.dataset.sb==='months')SB.months=t.value});
+document.addEventListener('click',async function(e){var b=e.target.closest&&e.target.closest('button[data-sb]');if(!b)return;
+ if(b.dataset.sb==='add'){var em=SB.email.trim().toLowerCase(),ex=SB.exams.split(',').map(function(x){return x.trim()}).filter(Boolean);
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)||!ex.length){SB.msg='Enter a valid email and at least one exam.';A.draw();return}
+  var d=new Date();d.setMonth(d.getMonth()+(+SB.months));var u=d.toISOString().slice(0,10);
+  try{await firebase.firestore().collection('entitlements').doc(em).set({email:em,exams:ex,until:u,created:new Date().toISOString()});SB.msg='Access given to '+em+' until '+u+'.';SB.email='';await loadSubs()}catch(x){SB.msg='Could not save: '+x.message;A.draw()}}
+ else if(b.dataset.sb==='del'){var r=SB.list[+b.dataset.i];if(!r)return;try{await firebase.firestore().collection('entitlements').doc(r.id).delete();await loadSubs()}catch(x){SB.msg='Could not remove: '+x.message;A.draw()}}});
+addEventListener('message',async function(e){var m=e.data;if(!m)return;
+ if(m.pp==='tutorAccess'){var u=firebase.auth().currentUser,o={pp:'tutorA',id:m.id,exams:[]};
+  if(!u)o.login=1;else if(window.ppRole==='admin')o.all=1;else{try{var d=await firebase.firestore().collection('entitlements').doc((u.email||'').toLowerCase()).get();if(d.exists){var x=d.data();if(!x.until||new Date(x.until+'T23:59:59Z')>new Date())o.exams=x.exams||[]}}catch(_){}}
+  e.source.postMessage(o,'*');return}
+ if(m.pp!=='tutor')return;
+ function back(o){e.source.postMessage(Object.assign({pp:'tutorR',id:m.id},o),'*')}
+ try{var u2=firebase.auth().currentUser;if(!u2){back({error:'Please log in to use the AI tutor.'});return}
+  var r=await fetch('/api/tutor',{method:'POST',headers:{'content-type':'application/json',authorization:'Bearer '+await u2.getIdToken()},body:JSON.stringify(m.body)}),j=await r.json();
+  back(r.ok?{reply:j.reply}:{error:j.error||'The tutor is busy.'})}catch(x){back({error:'Could not reach the tutor. Try again.'})}});
+function ui(){var T=(window.__CFG||{}).tutor||{};if(T.on===false)return;
+ var LANG=[['English','English'],['Hindi','हिन्दी'],['Hinglish','Hinglish'],['Bengali','বাংলা'],['Marathi','मराठी'],['Tamil','தமிழ்'],['Telugu','తెలుగు'],['Gujarati','ગુજરાતી'],['Punjabi','ਪੰਜਾਬੀ'],['Kannada','ಕನ್ನಡ'],['Malayalam','മലയാളം'],['Odia','ଓଡ଼ିଆ'],['Urdu','اردو'],['Assamese','অসমীয়া']];
+ function parse(t){var ex={},ce,cs;String(t).split('\n').forEach(function(l){l=l.trim();if(!l)return;var m;if(m=/^EXAM:\s*(.+)$/i.exec(l)){ce=m[1].trim();ex[ce]=ex[ce]||{};cs=null}else if(m=/^SUBJECT:\s*(.+)$/i.exec(l)){if(!ce)return;cs=m[1].trim();ex[ce][cs]=ex[ce][cs]||[]}else if(ce&&cs)ex[ce][cs].push(l)});return ex}
+ var SY=parse(T.syl||window.__TSYL),S={hist:[],busy:0,exams:null},DN={};try{DN=JSON.parse(localStorage.getItem('pp_tdone')||'{}')}catch(e){}
+ function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+ function fmt(s){return esc(s).replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>')}
+ document.addEventListener('DOMContentLoaded',function(){
+  var css=document.createElement('style');css.textContent='#tbtn{position:fixed;right:18px;bottom:18px;z-index:60;background:linear-gradient(135deg,var(--sky),var(--sky-deep));color:#fff;border-radius:999px;padding:12px 18px;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,.25)}#tpan{position:fixed;right:18px;bottom:76px;z-index:60;width:min(440px,calc(100vw - 24px));height:min(640px,calc(100vh - 100px));background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.25);display:none;flex-direction:column;overflow:hidden}#tpan.on{display:flex}#tpan header{padding:11px 14px;background:var(--sky-wash);border-bottom:1px solid var(--line);font-weight:800;display:flex;align-items:center;justify-content:space-between}#tpan select,#tpan input{font:inherit;font-size:13px;padding:7px 8px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);min-width:0}#tsel{display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:8px 12px;border-bottom:1px solid var(--line)}#tsel select{width:100%}#tmsg{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;font-size:14px;line-height:1.55;color:var(--ink)}#tmsg>div{padding:9px 12px;border-radius:12px;max-width:94%}#tmsg .u{align-self:flex-end;background:var(--sky);color:#fff}#tmsg .a{align-self:flex-start;background:var(--sky-wash)}#tmsg .e{align-self:flex-start;background:#FDECEC;color:#B42318}#tchips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 8px}#tchips button{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:5px 10px;background:#fff;color:var(--ink2)}#tin{display:flex;gap:6px;padding:10px 12px;border-top:1px solid var(--line)}#tin input{flex:1}#tin button,#tmsg .go{background:var(--sky);color:#fff;border-radius:9px;padding:6px 14px;font-weight:700}';
+  document.head.appendChild(css);
+  var b=document.createElement('button');b.id='tbtn';b.textContent='🎓 '+(T.name||'AI Tutor');
+  var p=document.createElement('div');p.id='tpan';
+  p.innerHTML='<header><span>🎓 '+esc(T.name||'AI Tutor')+'</span><button id="tx" style="font-size:18px">✕</button></header><div id="tsel"><select id="tex"></select><select id="tlg"></select><select id="tsb"></select><select id="ttp"></select></div><div id="tmsg"></div><div id="tchips"></div><div id="tin"><input id="tq" placeholder="Ask a doubt or paste a question…"><button id="ts">Send</button></div>';
+  document.body.appendChild(b);document.body.appendChild(p);
+  var $=function(i){return p.querySelector('#'+i)},msg=$('tmsg'),q=$('tq');
+  function add(c,t){var d=document.createElement('div');d.className=c;d.innerHTML=c==='u'?esc(t):fmt(t);msg.appendChild(d);msg.scrollTop=msg.scrollHeight;return d}
+  function opts(sel,arr,fn){sel.innerHTML=arr.map(function(x){var v=Array.isArray(x)?x[0]:x,l=Array.isArray(x)?x[1]:x;return'<option value="'+esc(v)+'">'+esc(fn?fn(v,l):l)+'</option>'}).join('')}
+  var lg=localStorage.getItem('pp_tlang')||'English';opts($('tlg'),LANG);try{$('tlg').value=lg}catch(e){}
+  $('tlg').onchange=function(){try{localStorage.setItem('pp_tlang',$('tlg').value)}catch(e){}};
+  function fillSub(){var ex=$('tex').value;opts($('tsb'),Object.keys(SY[ex]||{}));fillTop()}
+  function fillTop(){var ex=$('tex').value,sb=$('tsb').value;opts($('ttp'),(SY[ex]||{})[sb]||[],function(v){return(DN[ex+'|'+sb+'|'+v]?'✓ ':'')+v});S.hist=[]}
+  $('tex').onchange=fillSub;$('tsb').onchange=fillTop;$('ttp').onchange=function(){S.hist=[]};
+  function load(){S.exams=[];add('a','Checking your plan…');var id=Date.now();
+   function on(e){var m=e.data;if(!m||m.pp!=='tutorA'||m.id!==id)return;removeEventListener('message',on);msg.innerHTML='';
+    var all=Object.keys(SY),ok=m.all?all:all.filter(function(x){return(m.exams||[]).some(function(y){return String(y).toLowerCase()===x.toLowerCase()})});
+    if(!ok.length){$('tsel').style.display=$('tchips').style.display=$('tin').style.display='none';
+     add('a',m.login?'Please log in to use the AI Tutor.':'🔒 The AI Tutor is part of the paid exam plans. Subscribe to an exam plan (for example SSC) to unlock a full teacher for that exam: every subject and topic, shortcuts, important questions and simple explanations in your language.');
+     var g=document.createElement('button');g.className='go';g.textContent='See plans';g.onclick=function(){var n=document.querySelector('[data-go="plans"]');if(n)n.click();p.classList.remove('on')};msg.appendChild(g);return}
+    S.exams=ok;opts($('tex'),ok);fillSub();add('a','Hi! Choose your language, subject and topic, then tap a button below. I teach step by step in simple words.')}
+   addEventListener('message',on);parent.postMessage({pp:'tutorAccess',id:id},'*')}
+  function send(t,mark){t=(t||q.value).trim();if(!t||S.busy||!S.exams||!S.exams.length)return;q.value='';S.busy=1;S.hist.push({role:'user',content:t});add('u',t);var w=add('a','Thinking…'),id=Date.now();
+   if(mark){var k=$('tex').value+'|'+$('tsb').value+'|'+$('ttp').value;DN[k]=1;try{localStorage.setItem('pp_tdone',JSON.stringify(DN))}catch(e){}}
+   function on(e){var m=e.data;if(!m||m.pp!=='tutorR'||m.id!==id)return;removeEventListener('message',on);S.busy=0;
+    if(m.error){S.hist.pop();w.className='e';w.textContent=m.error}else{S.hist.push({role:'assistant',content:m.reply});w.innerHTML=fmt(m.reply)}msg.scrollTop=msg.scrollHeight}
+   addEventListener('message',on);
+   parent.postMessage({pp:'tutor',id:id,body:{name:T.name,extra:T.extra,exam:$('tex').value,language:$('tlg').value,subject:$('tsb').value,topic:$('ttp').value,messages:S.hist.slice(-12)}},'*')}
+  function tp(){return'"'+$('ttp').value+'"'}
+  [['📘 Teach me','Teach me '+'__T__'+' step by step from zero.',1],['⚡ Shortcuts','Give me the best shortcuts and tricks for __T__, with one quick example each.'],['⭐ Important questions','Give 5 important exam-style questions on __T__ with options, correct answers and a one-line solution each.'],['✍️ Practice me','Give me one practice question on __T__ and wait for my answer.'],['🔍 Explain my question']].forEach(function(c,i){var x=document.createElement('button');x.textContent=c[0];x.onclick=function(){if(i===4){q.value='Explain this question: ';q.focus();return}send(c[1].replace('__T__',tp()),c[2])};$('tchips').appendChild(x)});
+  var nx=document.createElement('button');nx.textContent='➡ Next topic';nx.onclick=function(){var t=$('ttp'),s=$('tsb');if(t.selectedIndex<t.options.length-1)t.selectedIndex++;else if(s.selectedIndex<s.options.length-1){s.selectedIndex++;fillTop()}else{add('a','🎉 You finished every topic in this exam. Revise with Important questions.');return}S.hist=[];send('Teach me '+tp()+' step by step from zero.',1)};$('tchips').appendChild(nx);
+  b.onclick=function(){p.classList.toggle('on');if(S.exams===null)load()};$('tx').onclick=function(){p.classList.remove('on')};
+  $('ts').onclick=function(){send()};q.addEventListener('keydown',function(e){if(e.key==='Enter')send()})})}
+var old=window.ppInject;
+window.ppInject=function(t){var r=old?old(t):t;return r.replace('</head>',function(){return'<script>window.__TSYL='+JSON.stringify(DEFSYL)+';('+ui.toString()+')()<\/script></head>'})};
+})();
+</script>
 </body>
 </html>
