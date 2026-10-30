@@ -1,0 +1,1 @@
+{"functions":{"api/extract.js":{"maxDuration":60},"api/generate.js":{"maxDuration":60},"api/tutor.js":{"maxDuration":30},"api/lesson.js":{"maxDuration":30}}}
