@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Exam Planner – SSC CGL Tier 1</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+:root{--ac:#3b9ae8;--dk:color-mix(in srgb,var(--ac) 22%,#0b1220);--ink:#2f3b4f;--mut:#6f7b90;--line:#e1eaf4;--g1:#c9f1d5;--g2:#8fdaa9;--g3:#0f4a2a;color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;font-family:Inter,"Segoe UI","Noto Sans Devanagari","Mangal",system-ui,sans-serif;color:var(--ink);font-size:14px;line-height:1.5;font-weight:400;background:linear-gradient(180deg,color-mix(in srgb,var(--ac) 20%,#fff) 0,color-mix(in srgb,var(--ac) 5%,#fff) 420px,#fff 760px) no-repeat,#fff;min-height:100vh}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;padding:0}
+button:focus-visible,input:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.btn,.pill,.ib,.go{position:relative;overflow:hidden;transition:background .25s,color .25s,border-color .25s,transform .2s,box-shadow .25s}
+.btn::after,.pill::after,.ib::after,.go::after,.row::after{content:"";position:absolute;top:0;left:-60%;width:28%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);pointer-events:none}
+.btn:hover::after,.pill:hover::after,.ib:hover::after,.go:hover::after,.row:hover::after{left:130%;transition:left .9s ease}
+.btn:hover,.pill:hover,.ib:hover,.go:hover{background:var(--g1);color:var(--g3);border-color:var(--g2);transform:translateY(-1px);box-shadow:0 4px 10px rgba(70,170,110,.16)}
+.bar0{background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+.nav{max-width:1180px;margin:0 auto;padding:12px 20px;display:flex;align-items:center;gap:14px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.02em;white-space:nowrap}
+.logo i{width:38px;height:38px;border-radius:10px;background:color-mix(in srgb,var(--ac) 45%,#fff);color:var(--dk);display:grid;place-items:center;font-style:normal;font-weight:600}
+.exam{border:1.5px solid color-mix(in srgb,var(--ac) 35%,#fff);border-radius:12px;padding:8px 14px;font-weight:500;font-size:13.5px;white-space:nowrap;background:var(--card)}
+.search{flex:1;max-width:440px;margin-left:auto;display:flex;align-items:center;gap:8px;background:var(--card);border:1.5px solid color-mix(in srgb,var(--ac) 30%,#fff);border-radius:12px;padding:9px 14px;color:var(--mut)}
+.search input{all:unset;flex:1;color:var(--ink);font-size:14px;min-width:0}
+.ib{width:40px;height:40px;border-radius:12px;border:1.5px solid color-mix(in srgb,var(--ac) 35%,#fff);display:grid;place-items:center;background:var(--card);font-size:16px}
+.av{width:40px;height:40px;border-radius:50%;background:color-mix(in srgb,var(--ac) 45%,#fff);color:var(--dk);display:grid;place-items:center;font-weight:600}
+.wrap{max-width:1180px;margin:0 auto;padding:34px 20px 50px}
+.hero{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:36px;align-items:center;margin-bottom:10px}
+.hero h1{margin:0 0 12px;font-size:clamp(26px,3.3vw,35px);line-height:1.08;font-weight:600;letter-spacing:-.03em}
+.hero p{margin:0 0 22px;color:var(--mut);font-size:15px;max-width:520px}
+.hb{display:flex;gap:12px;flex-wrap:wrap}
+.btn{background:color-mix(in srgb,var(--ac) 42%,#fff);color:var(--dk);border:1.5px solid color-mix(in srgb,var(--ac) 50%,#fff);padding:10px 20px;border-radius:12px;font-weight:500;font-size:14px;text-align:center}
+.btn.out{background:var(--card);border-color:color-mix(in srgb,var(--ac) 40%,#fff)}
+.btn.sm{padding:8px 18px;font-size:13.5px}
+.hc{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px;box-shadow:0 22px 50px rgba(40,90,150,.12)}
+.ph{display:flex;gap:14px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--line);margin-bottom:12px}.ph small{display:block;color:var(--mut);font-size:13px}.ph b{font-size:16px;letter-spacing:-.01em}
+.pm{display:flex;gap:16px;flex-wrap:wrap;color:var(--mut);font-size:13px;padding-bottom:12px;border-bottom:1px solid var(--line);margin-bottom:14px}
+.pr{display:flex;gap:12px;align-items:center;margin-bottom:12px;font-size:13.5px}.pr span{width:112px;color:var(--mut)}.pr .bar{flex:1;margin:0;max-width:none}.pr b{width:54px;text-align:right}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin:30px 0 20px}
+.tabs button{padding:12px 16px;font-weight:500;color:var(--mut);white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-1px;border-radius:10px 10px 0 0;transition:background .2s,color .2s}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--ac)}.tabs button:hover{background:#e8f8ed;color:var(--g3)}
+.cols{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:22px;align-items:start}
+body.lay-one .cols{grid-template-columns:minmax(0,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;box-shadow:0 10px 28px rgba(40,90,150,.07)}
+.card h3{margin:0 0 14px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+h2.s{font-size:16px;font-weight:600;letter-spacing:-.02em;margin:0 0 14px}h2.s:not(:first-child){margin-top:28px}
+.pills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.pill{padding:8px 18px;border-radius:99px;border:1.5px solid color-mix(in srgb,var(--ac) 35%,#fff);background:var(--card);font-size:13.5px;font-weight:500}
+.pill.on{background:#d8f4e0;border-color:var(--g2);color:var(--g3)}
+.rows{display:flex;flex-direction:column;gap:12px}
+.row{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:16px;box-shadow:0 8px 22px rgba(40,90,150,.06);transition:transform .2s,box-shadow .25s,border-color .25s}
+.row:hover{transform:translateY(-1px);border-color:var(--g2);box-shadow:0 8px 18px rgba(70,170,110,.12)}
+.ico{width:46px;height:46px;border-radius:12px;background:color-mix(in srgb,var(--ac) 22%,#fff);color:var(--dk);display:grid;place-items:center;font-weight:600;font-size:13px;flex-shrink:0}
+.mid{flex:1;min-width:0}.mid h4{margin:0 0 6px;font-size:14.5px;font-weight:500;letter-spacing:-.01em;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.meta{display:flex;gap:4px 18px;flex-wrap:wrap;color:var(--mut);font-size:13px}.langs{color:var(--mut);font-size:12.5px;margin-top:3px}
+.tag{font-size:11.5px;font-weight:600;padding:3px 10px;border-radius:99px;background:#d8f4e0;color:var(--g3)}.tag.p{background:color-mix(in srgb,var(--ac) 18%,#fff);color:var(--dk)}
+.act{display:flex;align-items:center;gap:14px;flex-shrink:0}.act b{font-size:15px;font-weight:600}
+.go{background:color-mix(in srgb,var(--ac) 42%,#fff);color:var(--dk);border:1.5px solid color-mix(in srgb,var(--ac) 50%,#fff);padding:9px 20px;border-radius:12px;font-weight:500;font-size:14px}
+.go.ghost{background:var(--card);border-color:color-mix(in srgb,var(--ac) 40%,#fff)}
+.bar{height:8px;border-radius:9px;background:color-mix(in srgb,var(--ac) 14%,#fff);overflow:hidden;margin-top:9px;max-width:280px}.bar i{display:block;height:100%;border-radius:9px;background:color-mix(in srgb,var(--ac) 70%,#fff)}.bar.lo i{background:#a9b6c8}.bar.mid i{background:color-mix(in srgb,var(--ac) 50%,#fff)}
+.sec{display:flex;gap:10px;align-items:center;margin-bottom:12px;font-size:14px}.sec span{width:96px;color:var(--mut)}.sec .bar{flex:1;margin:0;max-width:none}.sec b{width:42px;text-align:right}
+.kv{display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}.kv:last-child{border:0}.kv span{color:var(--mut)}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden}th,td{padding:14px 18px;text-align:left;border-bottom:1px solid var(--line)}th{background:color-mix(in srgb,var(--ac) 12%,#fff);font-size:13.5px}
+.xs{overflow-x:auto}.note{color:var(--mut);font-size:13px;margin-top:12px}.empty{padding:34px;text-align:center;color:var(--mut)}
+.pop{position:absolute;right:20px;top:62px;width:300px;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;box-shadow:0 18px 44px rgba(40,90,150,.2);z-index:20}.pop[hidden]{display:none}
+.pop h6{margin:14px 0 8px;font-size:13px;color:var(--mut);font-weight:500}.pop h6:first-child{margin-top:0}.pop .pills{margin:0}
+.sws{display:flex;gap:10px;flex-wrap:wrap}.sw{width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 2px var(--card)}.sw.on{box-shadow:0 0 0 2px var(--card),0 0 0 4px var(--ink)}
+@media(prefers-reduced-motion:reduce){.btn::after,.pill::after,.ib::after,.go::after,.row::after{display:none}.row:hover,.btn:hover,.go:hover,.pill:hover{transform:none}}
+@media(max-width:940px){.cols,.hero{grid-template-columns:minmax(0,1fr)}.exam{display:none}.hero{gap:24px}}
+@media(max-width:640px){.nav{padding:10px 12px;gap:8px}.logo span{display:none}.wrap{padding:22px 12px 40px}.row{flex-wrap:wrap}.act{width:100%;justify-content:space-between}.pop{left:12px;right:12px;width:auto}.pr span{width:84px}}
+.stack{display:flex;flex-direction:column;gap:14px}.tips{margin:0;padding-left:18px;color:var(--ink)}.tips li{margin-bottom:9px}
+.cn{font-size:12.5px;color:var(--mut);margin-top:3px}.cn.ok{color:#2e7d4f}
+.bar u{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.55}.bar.mk{position:relative}
+tr.hl td{background:#eaf8ef}.card table{border:0;border-radius:0}.sec b{font-weight:500}
+
+/* ---- Clean test-list look (original styling, own palette) ---- */
+:root{--btn:#1f7ae0;--btn-h:#1763b8;--navy:#4fb3e8;--shd:0 1px 8px rgba(20,30,50,.12);--line:#e6e9ee;--ink:#1e2430}
+body{font-family:Figtree,Inter,"Segoe UI","Noto Sans Devanagari",system-ui,sans-serif;background:var(--card);color:var(--ink)}
+.bar0{border-bottom:0;box-shadow:0 1px 0 var(--line)}
+.logo i{border-radius:6px;background:var(--navy);color:#fff}
+.exam,.search,.ib{border:1px solid var(--line);border-radius:6px;background:var(--card)}
+.av{background:var(--navy);color:#fff}
+.hero h1{font-size:clamp(30px,4.4vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.1}
+.hero p{font-size:16px}
+.hc,.card,.row,.pop{border:0;border-radius:6px;box-shadow:var(--shd)}
+.row{padding:20px 22px;border-left:5px solid var(--navy)}
+.row:hover{transform:none;box-shadow:0 3px 14px rgba(20,30,50,.18)}
+.ico{border-radius:6px;background:var(--navy);color:#fff;width:54px;height:42px}
+.mid h4{font-size:17px;font-weight:600}
+.btn,.go{background:var(--btn);color:#fff;border:0;border-radius:4px;padding:12px 28px;font-size:15px;font-weight:500}
+.btn.sm{padding:10px 22px}
+.btn:hover,.go:hover{background:var(--btn-h);color:#fff;transform:none;box-shadow:none;border-color:transparent}
+.btn.out,.go.ghost{background:var(--card);color:var(--btn);border:1.5px solid var(--btn)}
+.btn.out:hover,.go.ghost:hover{background:var(--tint);color:var(--btn-h);border-color:var(--btn)}
+.btn::after,.pill::after,.ib::after,.go::after,.row::after{display:none}
+.pill{border-radius:4px;border:1px solid var(--line)}.pill:hover{background:var(--tint);color:var(--btn-h);border-color:var(--btn);transform:none;box-shadow:none}
+.pill.on{background:var(--btn);color:#fff;border-color:var(--btn)}
+.tabs{margin-top:34px}.tabs button{border-radius:0;font-size:15px}.tabs button.on{border-bottom-color:var(--btn);font-weight:700}
+.tabs button:hover{background:var(--soft);color:var(--ink)}
+h2.s{font-size:24px;font-weight:700}
+.tag{border-radius:4px;background:var(--tint);color:var(--btn-h)}.tag.p{background:var(--navy);color:#fff}
+.bar{height:6px}.bar i{background:var(--btn)}
+th{background:var(--soft)}tr.hl td{background:var(--tint)}
+table{border:0;box-shadow:var(--shd);border-radius:6px}
+
+/* ---- Motion and new parts ---- */
+@keyframes grow{from{transform:scaleX(0)}}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+@keyframes pop{from{opacity:0;transform:scale(.94)}}
+.bar i{transform-origin:left;transition:width 1s linear}
+.ani .bar i{animation:grow 1s cubic-bezier(.2,.8,.2,1) both}
+.ani .row,.ani .stack>.card,.ani .hc,.ani #side>.card{animation:rise .45s both}
+.ani .row:nth-child(2),.ani .stack>.card:nth-child(2){animation-delay:.06s}.ani .row:nth-child(3),.ani .stack>.card:nth-child(3){animation-delay:.12s}.ani .row:nth-child(4),.ani .stack>.card:nth-child(4){animation-delay:.18s}.ani .row:nth-child(n+5),.ani .stack>.card:nth-child(n+5){animation-delay:.24s}
+.row{transition:transform .2s,box-shadow .2s}.row:hover{transform:translateX(5px)}
+.go:active,.btn:active{transform:scale(.96)}
+.go{transition:background .2s,transform .15s}
+.tabs button{transition:color .2s,background .2s}
+.gl{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:9px 0;font-size:14.5px;border-bottom:1px solid var(--line)}
+.gl i{width:20px;height:20px;border-radius:5px;border:2px solid var(--line);display:grid;place-items:center;font-style:normal;font-size:13px;color:#fff;transition:background .2s,border-color .2s,transform .2s}
+.gl.on{color:var(--mut);text-decoration:line-through}.gl.on i{background:var(--btn);border-color:var(--btn);transform:scale(1.1)}
+.goals .bar{margin-top:14px;max-width:none}
+.modal{position:fixed;inset:0;background:rgba(15,25,40,.5);display:grid;place-items:center;padding:16px;z-index:50}.modal[hidden]{display:none}
+.mbox{background:var(--card);border-radius:8px;padding:26px;width:min(420px,100%);animation:pop .22s both;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.mbox h3{margin:0 0 6px;font-size:22px}.mbox p{margin:0 0 14px;color:var(--mut)}.mbox .mt{color:var(--ink);font-weight:600}
+.facts{display:flex;gap:10px;margin-bottom:12px}.facts div{flex:1;background:var(--soft);border-radius:6px;padding:12px;text-align:center;font-size:13px;color:var(--mut)}.facts b{display:block;font-size:24px;color:var(--ink)}
+.mbtn{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+.clock{text-align:center;padding:14px 0}.clock small{display:block;color:var(--mut)}.clock b{font-size:54px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,30px);background:var(--ink);color:#fff;padding:12px 22px;border-radius:6px;opacity:0;pointer-events:none;transition:.3s;z-index:60}.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(prefers-reduced-motion:reduce){.ani .bar i,.ani .row,.ani .stack>.card,.ani .hc,.ani #side>.card,.mbox{animation:none}.row:hover{transform:none}}
+
+.ax{fill:var(--mut);font-size:11px}.vl{font-size:12px;font-weight:700;fill:var(--ink)}.gl0{stroke:var(--line)}
+.cl{stroke:#e5484d;stroke-width:2;stroke-dasharray:6 4}.cll{fill:#e5484d;font-size:12px;font-weight:700}
+.cb.past{fill:#b6c3d4}.cb.you{fill:var(--btn)}.cb.you2{fill:#8cc4f5}.cb.lo{fill:#f4b740}
+.chart svg{width:100%;height:auto;display:block}
+.sum{margin:10px 0 0;font-weight:600;color:#c2363b}.sum.ok{color:var(--btn-h)}
+@keyframes growY{from{transform:scaleY(0)}}
+.ani .cb{transform-box:fill-box;transform-origin:bottom;animation:growY .8s cubic-bezier(.2,.8,.2,1) both}
+@media(prefers-reduced-motion:reduce){.ani .cb{animation:none}}
+
+:root{--bg:#fff;--card:#fff;--soft:#f3f6f9;--tint:color-mix(in srgb,var(--btn) 12%,#fff);--track:color-mix(in srgb,var(--btn) 13%,#fff);--navy:color-mix(in srgb,var(--btn) 65%,#fff)}
+:root[data-theme="dark"]{color-scheme:dark;--bg:#10151c;--card:#19202a;--soft:#222b37;--ink:#e7ecf3;--mut:#9aa7b8;--line:#2b3542;--shd:0 1px 8px rgba(0,0,0,.55);--tint:color-mix(in srgb,var(--btn) 24%,#19202a);--track:#2b3542;--navy:color-mix(in srgb,var(--btn) 75%,#19202a)}
+body{background:var(--bg);transition:background .3s,color .3s}
+.bar{background:var(--track)}
+:root[data-theme="dark"] .cb.past{fill:#4b596c}
+:root[data-theme="dark"] .tag,:root[data-theme="dark"] .chip{color:color-mix(in srgb,var(--btn) 45%,#fff)}
+:root[data-theme="dark"] .sum{color:#ff7b80}:root[data-theme="dark"] .sum.ok{color:color-mix(in srgb,var(--btn) 45%,#fff)}
+:root[data-theme="dark"] .toast{color:#10151c}
+:root[data-theme="dark"] .btn.out,:root[data-theme="dark"] .go.ghost{color:color-mix(in srgb,var(--btn) 50%,#fff)}
+:root[data-theme="dark"] .modal{background:rgba(0,0,0,.65)}
+.exam{cursor:pointer}
+.chip{display:inline-block;padding:3px 12px;border-radius:99px;font-weight:700;font-size:12.5px;background:var(--tint);color:var(--btn-h)}
+.chip.free{background:var(--soft);color:var(--mut)}.chip.premium{background:#f4b740;color:#3a2a00}
+.go.lock{background:var(--soft);color:var(--ink);border:1.5px solid var(--line)}.go.lock:hover{background:var(--tint);color:var(--ink);border-color:var(--btn)}
+.banner{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:14px;border-left:5px solid #f4b740}.banner p{margin:2px 0 0;color:var(--mut);font-size:13.5px}
+.plans{display:grid;gap:10px;margin:12px 0}.plans div{background:var(--soft);border-radius:6px;padding:12px}.plans b{display:block}.plans span{color:var(--mut);font-size:13.5px}
+#em{left:210px;right:auto;width:290px}
+.ex{display:flex;justify-content:space-between;align-items:center;gap:10px;width:100%;text-align:left;padding:10px 4px;border-bottom:1px solid var(--line)}.ex:last-child{border:0}
+.ib:hover{background:var(--tint);color:var(--ink);border-color:var(--btn);transform:none;box-shadow:none}
+</style>
+</head>
+<body class="lay-two">
+<header class="bar0"><div class="nav">
+ <div class="logo"><i>E</i><span>Exam Planner</span></div>
+ <div class="exam">SSC CGL Tier 1 ▾</div>
+ <label class="search"><span aria-hidden="true">⌕</span><input id="q" aria-label="Search"></label>
+ <button class="ib" id="set" aria-label="Settings">⚙</button><div class="av">G</div>
+</div><div class="pop" id="pop" hidden></div><div class="pop" id="em" hidden></div></header>
+<main class="wrap">
+ <section class="hero"><div><h1 id="h1"></h1><p id="plan"></p><div class="hb"><button class="btn" id="cta"></button></div></div><div class="hc" id="chips"></div></section>
+ <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+ <div class="cols"><div id="main"><p style="padding:30px;color:#6f7b90">Loading your dashboard…</p></div><aside id="side"></aside></div>
+</main>
+<div class="modal" id="md" hidden><div class="mbox" id="mb"></div></div><div class="toast" id="toast" role="status"></div>
+<script>
+/* ---- EDIT THIS DATA: replace with your real tests, PDFs and cutoffs ---- */
+const D={
+ mocks:[1,2,3,4,5,6,7,8].map(n=>({name:"SSC CGL Tier 1 Mock "+n,k:"FM",q:100,m:200,min:60,free:n<=2,score:n<=3?[112,124,131][n-1]:null,secs:n<=3?[[24,34,30,24],[28,36,32,28],[30,38,34,29]][n-1]:null})),
+ sectional:[["Quant","Quantitative Aptitude"],["Reasoning","Reasoning"],["English","English"],["GK","General Awareness"]].flatMap(([s,n])=>[1,2,3].map(i=>({sec:s,name:n+" Sectional "+i,k:s[0],q:25,m:50,min:15,free:i==1,score:i==1?{Quant:34,Reasoning:42,English:38,GK:30}[s]:null}))),
+ topics:{Quant:["Percentage","Profit & Loss","Time & Work","Algebra","Geometry","Trigonometry","Mensuration","Average"],Reasoning:["Analogy","Coding-Decoding","Series","Syllogism","Blood Relations","Venn Diagram"],English:["Error Spotting","Cloze Test","Synonyms & Antonyms","Idioms","Reading Comprehension"],GK:["History","Polity","Geography","Economy","Science","Static GK","Current Affairs"]},
+ acc:{"Percentage":82,"Profit & Loss":64,"Time & Work":41,"Algebra":55,"Geometry":38,"Trigonometry":47,"Mensuration":60,"Average":78,"Analogy":88,"Coding-Decoding":72,"Series":69,"Syllogism":51,"Blood Relations":80,"Venn Diagram":90,"Error Spotting":58,"Cloze Test":66,"Synonyms & Antonyms":74,"Idioms":62,"Reading Comprehension":70,"History":52,"Polity":68,"Geography":45,"Economy":39,"Science":61,"Static GK":57,"Current Affairs":49},
+ pyp:[2024,2023].flatMap(y=>[1,2,3].map(i=>({name:"SSC CGL "+y+" Tier 1 Paper Shift "+i,k:"PYP",q:100,m:200,min:60,free:y==2024&&i==1,score:null}))),
+ gkpdf:[["Indian History Notes",48,0],["Indian Polity Quick Revision",36,0],["Geography & Environment",52,1],["Economy Capsule",30,1],["General Science",44,1],["Static GK & Awards",28,1],["Current Affairs – Nov 2026",40,0],["Current Affairs – Oct 2026",38,0]],
+ gktests:[["History Topic Test",25],["Polity Topic Test",25],["Geography Topic Test",25],["Economy Topic Test",25],["Science Topic Test",25],["Weekly Current Affairs",20],["Full GK Test (Mixed)",25]],
+ cutoff:[["UR",153],["EWS",142],["OBC",146],["SC",126],["ST",112]],
+ pyc:{2022:{UR:114,EWS:114,OBC:102,SC:89,ST:78},2023:{UR:150,EWS:147,OBC:146,SC:127,ST:118},2024:{UR:153,EWS:142,OBC:146,SC:126,ST:112}}
+};
+/* ---------------------------------------------------------------------- */
+const THEMES={Blue:"#1f7ae0",Sky:"#1ba4d9",Teal:"#0e9aa7",Green:"#2f9e6b",Amber:"#c98400",Coral:"#ef6a4c",Rose:"#e0476b",Slate:"#5b6b82"};
+const T={en:{dashboard:"Home",mocks:"Full mocks",sectional:"Subject tests",topics:"Topic tests",pyp:"Past papers",gk:"GK notes & tests",cutoff:"Cutoff & marks",search:"Search tests, topics or PDFs",title:"SSC CGL Tier 1 Test Series",prog:"Your progress",analysis:"My results",an_cut:"How you compare with the cutoff",short:"You need {n} more marks to reach the {c} cutoff ({m})",above:"You are {n} marks above the {c} cutoff ({m})",lockCut:"Take one full mock to see how you compare with the cutoff.",secMarks:"Marks in each subject",sec:"Subject",latest:"Last",avgS:"Average",target:"Goal",gap:"Difference",strong:"Strong topics (70% or more)",needs:"Can do better (50–69%)",weakT:"Weak topics (below 50%)",improve:"What to do next",trend:"Your mock scores (line = cutoff)",sampleCut:"Cutoffs are for the all-other-posts list in SSC Tier 1 notices (rounded). Please check ssc.gov.in before you rely on them.",tip1:"Practise {t}. Your score is {p}%. Take a topic test on it next.",tip2:"{s} is {n} marks below your goal. Spend more time on it.",tip3:"You need {n} more marks for the {c} cutoff. That is about {x} more in each subject.",tip4:"Keep revising {t} to stay at {p}%.",vsCut:"Vs cutoff",noneS:"No topic above 70% yet.",noneW:"No weak topics.",noneN:"None.",tipOk:"You have reached the cutoff. Keep taking mocks to stay on track.",plan:"Your plan is active. {d} days left.",cta:"Start a mock test",qs:"Questions",marks:"Marks",mins:"Minutes",pages:"Pages",free:"Free",prem:"Premium",start:"Start",review:"See result",open:"Open PDF",done:"Mocks finished",avg:"Average score",best:"Best score",perf:"Your scores",secAcc:"Score by subject",weak:"Weak topics to practise",next:"Tests to take next",cutSnap:"Cutoff",all:"All",gPdf:"GK PDFs",gTest:"GK tests",cCat:"Category",cMarks:"Cutoff marks",cBest:"Your best mock",cNote:"Check the official SSC notice for the latest marks.",none:"Nothing found",colour:"Colour",layout:"Layout",language:"Language",lTwo:"Two columns",lOne:"Single column",accT:"accuracy",attempted:"Attempted",ofT:"of",sample:"Full mock scores are scaled to 200 marks so you can compare them with the cutoff.",ex:"Exam",goalT:"Today's goals",g1:"Take one mock test",g2:"Practise one weak topic",g3:"Read one GK PDF",gDone:"{n} of 3 done",gAll:"All done. Great work today!",fAll:"All",fFree:"Free",fDone:"Finished",fTodo:"Not started",ready:"Ready to start?",begin:"Begin test",timeLeft:"Time left",submit:"Submit",cancel:"Cancel",sub:"Test submitted. Well done!",lang2:"English and Hindi",pdfMsg:"This opens the PDF. Add your own file link in the data block.",chY:"Past cutoffs and your marks ({c})",chYs:"Grey bars are past cutoffs. Bars in your theme colour are your marks.",chM:"Your mock marks vs the {c} cutoff",chMs:"Yellow bars are below the dashed cutoff line. Bars in your theme colour are above it.",yBest:"Your best",yAvg:"Your average",cutW:"cutoff",unlock:"Unlock",upT:"Unlock all tests",proL:"Pro: full mocks, subject tests and topic tests",premL:"Premium: everything in Pro, plus past papers and GK PDFs",later:"Not now",plans:"See plans",noSite:"Connect your website to open the plans page.",switchMsg:"Switching exam needs your website. See the connection guide.",subT:"Your subscription",examL:"Exam",planL:"Plan",ends:"Ends on",daysL:"days left",upgrade:"Upgrade",renew:"Renew plan",freeB:"You are on the Free plan",freeBs:"Upgrade to open all mocks, topic tests and PDFs.",planLine:"Your {p} plan is active. {d} days left.",freeLine:"You are on the Free plan. Upgrade to unlock all tests.",expired:"Your plan has ended. Renew to unlock all tests.",theme:"Theme",tLight:"Light",tNight:"Night",tAuto:"Auto",prevPlan:"Preview plan (for testing)",active:"Active",owned:"Owned"},
+hi:{dashboard:"डैशबोर्ड",mocks:"फुल मॉक",sectional:"सेक्शनल टेस्ट",topics:"टॉपिक टेस्ट",pyp:"पिछले वर्ष के पेपर",gk:"GK PDF और टेस्ट",cutoff:"कटऑफ",search:"टेस्ट, टॉपिक, PDF खोजें…",title:"SSC CGL Tier 1 टेस्ट सीरीज़",prog:"आपकी प्रगति",analysis:"विश्लेषण",an_cut:"कटऑफ से तुलना",short:"{c} कटऑफ ({m}) से {n} अंक कम",above:"{c} कटऑफ ({m}) से {n} अंक ऊपर",lockCut:"कटऑफ से तुलना देखने के लिए एक फुल मॉक दें।",secMarks:"सेक्शन-वार अंक",sec:"सेक्शन",latest:"नवीनतम",avgS:"औसत",target:"लक्ष्य",gap:"अंतर",strong:"मज़बूत टॉपिक (70% और ऊपर)",needs:"सुधार चाहिए (50–69%)",weakT:"कमज़ोर टॉपिक (50% से कम)",improve:"क्या सुधारें",trend:"मॉक स्कोर (रेखा = कटऑफ)",sampleCut:"नमूना कटऑफ – डेटा ब्लॉक में आधिकारिक अंकों से बदलें।",tip1:"{t} का अभ्यास करें – सटीकता {p}% है। अगला इसी का टॉपिक टेस्ट दें।",tip2:"{s} अपने लक्ष्य से {n} अंक पीछे है। अगले मॉक में इसे ज़्यादा समय दें।",tip3:"{c} कटऑफ तक पहुँचने के लिए {n} अंक और चाहिए – हर सेक्शन में लगभग {x} अंक और।",tip4:"{t} में {p}% सटीकता बनाए रखने के लिए इसे दोहराते रहें।",vsCut:"कटऑफ से",noneS:"अभी कोई टॉपिक 70% से ऊपर नहीं।",noneW:"कोई कमज़ोर टॉपिक नहीं।",noneN:"कोई नहीं।",tipOk:"आप कटऑफ पर या उससे ऊपर हैं – निरंतरता के लिए फुल मॉक देते रहें।",plan:"प्लान 2027-10-30 तक सक्रिय · 362 दिन बाकी",cta:"अगला मॉक शुरू करें",qs:"प्रश्न",marks:"अंक",mins:"मिनट",pages:"पेज",free:"मुफ़्त",prem:"प्रीमियम",start:"अभी शुरू करें",review:"विश्लेषण देखें",open:"PDF खोलें",done:"मॉक दिए",avg:"औसत स्कोर",best:"सर्वश्रेष्ठ स्कोर",perf:"आपका प्रदर्शन",secAcc:"सेक्शन के अनुसार सटीकता",weak:"कमज़ोर टॉपिक – पहले अभ्यास करें",next:"आगे के टेस्ट",cutSnap:"कटऑफ (टियर 1)",all:"सभी",gPdf:"GK PDF",gTest:"GK टेस्ट",cCat:"श्रेणी",cMarks:"कटऑफ अंक",cBest:"आपका सर्वश्रेष्ठ मॉक",cNote:"SSC परिणाम नोटिस से आधिकारिक अंक कटऑफ सूची में जोड़ें।",none:"कोई परिणाम नहीं मिला",colour:"रंग",layout:"लेआउट",language:"भाषा",lTwo:"दो कॉलम",lOne:"एक कॉलम",accT:"सटीकता",attempted:"दिया गया",ofT:"में से",sample:"नमूना डेटा – अपने असली टेस्ट से बदलें",ex:"परीक्षा"}};
+const R=[["SSC CGL","एसएससी सीजीएल"],["Tier 1","टियर 1"],["Quantitative Aptitude","मात्रात्मक योग्यता"],["General Awareness","सामान्य ज्ञान"],["Mock","मॉक"],["Sectional","सेक्शनल"],["Topic Test","टॉपिक टेस्ट"],["Paper Shift","पेपर शिफ्ट"],["Full GK Test (Mixed)","पूर्ण GK टेस्ट (मिश्रित)"],["Weekly","साप्ताहिक"],["Add official marks","आधिकारिक अंक जोड़ें"],["Indian History Notes","भारतीय इतिहास नोट्स"],["Indian Polity Quick Revision","भारतीय राजव्यवस्था त्वरित रिवीज़न"],["Geography & Environment","भूगोल और पर्यावरण"],["Economy Capsule","अर्थव्यवस्था कैप्सूल"],["General Science","सामान्य विज्ञान"],["Static GK & Awards","स्थैतिक GK और पुरस्कार"],["Current Affairs","समसामयिकी"],["Nov","नवं"],["Oct","अक्टू"],["Percentage","प्रतिशत"],["Profit & Loss","लाभ और हानि"],["Time & Work","समय और कार्य"],["Algebra","बीजगणित"],["Geometry","ज्यामिति"],["Trigonometry","त्रिकोणमिति"],["Mensuration","क्षेत्रमिति"],["Average","औसत"],["Analogy","सादृश्य"],["Coding-Decoding","कोडिंग-डिकोडिंग"],["Series","श्रेणी"],["Syllogism","न्याय निगमन"],["Blood Relations","रक्त संबंध"],["Venn Diagram","वेन आरेख"],["Error Spotting","त्रुटि पहचान"],["Cloze Test","क्लोज़ टेस्ट"],["Synonyms & Antonyms","पर्यायवाची और विलोम"],["Idioms","मुहावरे"],["Reading Comprehension","गद्यांश"],["History","इतिहास"],["Polity","राजव्यवस्था"],["Geography","भूगोल"],["Economy","अर्थव्यवस्था"],["Science","विज्ञान"],["Static GK","स्थैतिक GK"],["Quant","गणित"],["Reasoning","तर्कशक्ति"],["English","अंग्रेज़ी"],["GK","सामान्य ज्ञान"]].sort((a,b)=>b[0].length-a[0].length);
+const PLAN_LV={free:0,pro:1,premium:2},PLAN_NAME={free:"Free",pro:"Pro",premium:"Premium"};
+const TRUSTED_ORIGINS=[]; /* add your website, e.g. "https://www.yoursite.com", to accept data sent by postMessage */
+const CFG=Object.assign({exam:"SSC CGL Tier 1",examId:"ssc-cgl",plan:"pro",expiry:"2027-10-30",name:"Student",upgradeUrl:"",fromSite:false,exams:[{id:"ssc-cgl",name:"SSC CGL Tier 1",owned:true},{id:"sbi-po",name:"SBI PO Prelims",owned:false},{id:"ibps-clerk",name:"IBPS Clerk Prelims",owned:false}]},window.EP_CONFIG||{});
+if(window.EP_CONFIG)CFG.fromSite=true;
+try{const u=new URLSearchParams(location.search);["exam","examId","plan","expiry","name","upgradeUrl"].forEach(k=>{if(u.get(k)){CFG[k]=u.get(k);CFG.fromSite=true}})}catch(e){}
+if(CFG.fromSite&&!(window.EP_CONFIG&&window.EP_CONFIG.exams))CFG.exams=[{id:CFG.examId,name:CFG.exam,owned:true}];
+if(CFG.data)Object.assign(D,CFG.data);
+const mq=matchMedia("(prefers-color-scheme: dark)");
+const applyTheme=()=>{document.documentElement.dataset.theme=S.theme=="auto"?(mq.matches?"dark":"light"):S.theme};
+mq.addEventListener&&mq.addEventListener("change",applyTheme);
+const $=s=>document.querySelector(s);
+let S={color:"Blue",layout:"two",lang:"en",cat:"UR",theme:"auto",plan:null};
+try{Object.assign(S,JSON.parse(localStorage.getItem("ep-settings")||"{}"))}catch(e){}
+const save=()=>{try{localStorage.setItem("ep-settings",JSON.stringify(S))}catch(e){}};
+const t=k=>(T[S.lang]&&T[S.lang][k])||T.en[k]||k;
+const n=x=>{if(S.lang!="hi")return x;let o=x;R.forEach(([e,h])=>{o=o.split(e).join(h)});return o};
+const tabs=["dashboard","analysis","mocks","sectional","topics","pyp","gk","cutoff"];
+let mkF="All",ani=true,cur="dashboard",secF="All",gkF="PDFs",q="",pop=false;
+let done,best,avg;const recalc=()=>{done=D.mocks.filter(m=>m.score!=null);best=done.length?Math.max(...done.map(m=>m.score)):0;avg=done.length?Math.round(done.reduce((a,m)=>a+m.score,0)/done.length):0;CATS=D.cutoff.map(r=>r[0])};
+let CATS=[];const SECN=["Quant","Reasoning","English","GK"];recalc();
+const tabsL=()=>tabs.filter(k=>k!="cutoff"||done.length>0);
+const f=(k,o)=>t(k).replace(/\{(\w+)\}/g,(_,x)=>o[x]);
+const cutVal=()=>(D.cutoff.find(r=>r[0]==S.cat)||D.cutoff[0])[1];
+const cutNote=sc=>{const g=sc-cutVal();return `<div class="cn ${g>=0?"ok":""}">${f(g>=0?"above":"short",{n:Math.abs(g),c:S.cat,m:cutVal()})}</div>`};
+const bar=p=>`<div class="bar ${p<50?"lo":p<65?"mid":""}"><i style="width:${p}%"></i></div>`;
+const secAcc=s=>{const a=(D.topics[s]||[]).filter(x=>D.acc[x]!=null);return a.length?Math.round(a.reduce((p,x)=>p+D.acc[x],0)/a.length):0};
+const match=x=>(x+" "+n(x)).toLowerCase().includes(q);
+function row(o){const d=o.score!=null,L=!d&&locked(o);return `<div class="row"><div class="ico">${o.k}</div><div class="mid"><h4>${n(o.name)}${o.free===1?`<span class="tag">${t("free")}</span>`:o.free===2?`<span class="tag p">${t("prem")}</span>`:""}</h4><div class="meta">${o.q?`<span>${o.q} ${t("qs")}</span><span>${o.m} ${t("marks")}</span><span>${o.min} ${t("mins")}</span>`:`<span>${o.pg} ${t("pages")}</span>`}</div>${d&&o.k=="FM"?cutNote(o.score):""}${o.q?`<div class="langs">English, हिन्दी</div>`:""}${o.bar!=null?bar(o.bar):""}</div><div class="act">${d?`<b>${o.score}/${o.m}</b>`:o.bar!=null?`<b>${o.bar}%</b>`:""}<button class="go ${d?"ghost":L?"lock":""}" ${L?'data-lock="1"':""} data-t="${o.name}" data-q="${o.q||0}" data-m="${o.m||0}" data-min="${o.min||0}">${L?"🔒 "+t("unlock"):o.btn||(d?t("review"):t("start"))}</button></div></div>`}
+const rows=a=>a.length?`<div class="rows">${a.map(row).join("")}</div>`:`<div class="card empty">${t("none")}</div>`;
+const tst=x=>({...x,free:x.free?1:0,need:1});
+const topicRow=(x,s)=>({name:x,k:x[0],q:15,m:30,min:15,bar:D.acc[x],score:null});
+const cutPills=()=>`<div class="pills">${CATS.map(c=>`<button class="pill ${c==S.cat?"on":""}" data-cat="${c}">${c}</button>`).join("")}</div>`;
+function svgBars(items,cut){const W=560,H=250,L=34,B=34,T=20,ch=H-B-T,gap=(W-L)/items.length,bw=Math.min(70,gap-22),y=v=>T+ch*(1-v/200);
+ const g=[0,50,100,150,200].map(v=>`<line x1="${L}" x2="${W}" y1="${y(v)}" y2="${y(v)}" class="gl0"/><text x="${L-6}" y="${y(v)+4}" class="ax" text-anchor="end">${v}</text>`).join("");
+ const b=items.map((it,k)=>{const x=L+gap*k+(gap-bw)/2;return `<rect class="cb ${it.c}" style="animation-delay:${k*90}ms" x="${x}" y="${y(it.v)}" width="${bw}" height="${ch*it.v/200}" rx="4"/><text x="${x+bw/2}" y="${y(it.v)-6}" class="vl" text-anchor="middle">${it.v}</text><text x="${x+bw/2}" y="${H-12}" class="ax" text-anchor="middle">${it.l}</text>`}).join("");
+ const cl=cut?`<line x1="${L}" x2="${W}" y1="${y(cut)}" y2="${y(cut)}" class="cl"/><text x="${W-4}" y="${y(cut)-6}" class="cll" text-anchor="end">${S.cat} ${t("cutW")} ${cut}</text>`:"";
+ return `<svg viewBox="0 0 ${W} ${H}" role="img">${g}${b}${cl}</svg>`}
+function chartsH(){if(!done.length)return `<div class="card"><p class="note" style="margin:0">${t("lockCut")}</p></div>`;
+ const cut=cutVal(),yr=Object.keys(D.pyc).map(y=>({l:y,v:D.pyc[y][S.cat],c:"past"}));
+ const c1=svgBars(yr.concat([{l:t("yAvg"),v:avg,c:"you2"},{l:t("yBest"),v:best,c:"you"}]));
+ const c2=svgBars(done.map((m,k)=>({l:n("Mock")+" "+(k+1),v:m.score,c:m.score>=cut?"you":"lo"})),cut);
+ const lg=a=>`<div class="lg">${a.map(([c,l])=>`<span><i class="${c}"></i>${l}</span>`).join("")}</div>`;
+ return `<div class="stack"><div class="card chart"><h3>${f("chM",{c:S.cat})}</h3><p class="note" style="margin:-6px 0 6px">${t("chMs")}</p>${c2}<p class="sum ${best>=cut?"ok":""}">${f(best>=cut?"above":"short",{n:Math.abs(best-cut),c:S.cat,m:cut})}</p></div><div class="card chart"><h3>${f("chY",{c:S.cat})}</h3><p class="note" style="margin:-6px 0 6px">${t("chYs")}</p>${c1}</div></div>`}
+const p0=()=>CFG.fromSite?CFG.plan:(S.plan||CFG.plan),isExp=()=>p0()!="free"&&new Date(CFG.expiry)<new Date();
+const planNow=()=>isExp()?"free":(PLAN_LV[p0()]!=null?p0():"free");
+const lvl=()=>PLAN_LV[planNow()],locked=o=>o.free!==1&&lvl()<(o.need||1);
+const daysLeft=()=>Math.max(0,Math.ceil((new Date(CFG.expiry)-new Date())/864e5));
+const planLine=()=>{const pl=planNow();return pl=="free"?t(isExp()?"expired":"freeLine"):f("planLine",{p:PLAN_NAME[pl],d:daysLeft()})};
+const upBanner=()=>planNow()=="free"?`<div class="card banner"><div><b>${t("freeB")}</b><p>${t("freeBs")}</p></div><button class="btn sm" data-up="1">${t("upgrade")}</button></div>`:"";
+const subH=()=>{const pl=planNow(),exp=isExp(),d=daysLeft(),pct=Math.min(100,Math.round(d/365*100));
+ return `<div class="card" style="margin-bottom:14px"><h3>${t("subT")}</h3><div class="kv"><span>${t("examL")}</span><b>${CFG.exam}</b></div><div class="kv"><span>${t("planL")}</span><span class="chip ${pl}">${PLAN_NAME[pl]}</span></div>${pl!="free"?`<div class="kv"><span>${t("ends")}</span><b>${CFG.expiry}</b></div>${bar(pct)}<p class="note" style="margin:8px 0 0">${d} ${t("daysL")}</p>`:""}${pl!="premium"?`<button class="btn sm" style="margin-top:14px;width:100%" data-up="1">${exp?t("renew"):t("upgrade")}</button>`:""}</div>`};
+const V={
+dashboard(){const weak=Object.entries(D.acc).sort((a,b)=>a[1]-b[1]).filter(([x])=>match(x)).slice(0,4);
+ return upBanner()+(done.length?cutPills()+chartsH()+'<div style="height:6px"></div>':"")+`<h2 class="s">${t("next")}</h2>`+rows(D.mocks.filter(m=>m.score==null&&match(m.name)).slice(0,3).map(tst))+`<h2 class="s">${t("weak")}</h2>`+rows(weak.map(([x])=>topicRow(x)))},
+mocks(){const F=[["All","fAll"],["Free","fFree"],["Done","fDone"],["Todo","fTodo"]],ok=m=>mkF=="Free"?m.free:mkF=="Done"?m.score!=null:mkF=="Todo"?m.score==null:true;return `<div class="pills">${F.map(([x,l])=>`<button class="pill ${x==mkF?"on":""}" data-mf="${x}">${t(l)}</button>`).join("")}</div>`+rows(D.mocks.filter(m=>match(m.name)&&ok(m)).map(tst))},
+sectional(){return `<div class="pills">${["All","Quant","Reasoning","English","GK"].map(x=>`<button class="pill ${x==secF?"on":""}" data-f="${x}">${x=="All"?t("all"):n(x)}</button>`).join("")}</div>`+rows(D.sectional.filter(x=>(secF=="All"||x.sec==secF)&&match(x.name)).map(tst))},
+topics(){return Object.entries(D.topics).map(([s,ts])=>{const r=ts.filter(match);return r.length?`<h2 class="s">${n(s)}</h2>`+rows(r.map(x=>topicRow(x,s))):""}).join("")||rows([])},
+pyp(){return rows(D.pyp.filter(m=>match(m.name)).map(m=>({...tst(m),need:2})))},
+gk(){return `<div class="pills">${["PDFs","Tests"].map(x=>`<button class="pill ${x==gkF?"on":""}" data-g="${x}">${x=="PDFs"?t("gPdf"):t("gTest")}</button>`).join("")}</div>`+(gkF=="PDFs"?rows(D.gkpdf.filter(p=>match(p[0])).map(p=>({name:p[0],k:"PDF",pg:p[1],free:p[2]?2:1,need:2,btn:t("open")}))):rows(D.gktests.filter(x=>match(x[0])).map(x=>({name:x[0],k:"GK",q:x[1],m:x[1]*2,min:x[1],free:0,need:2}))))},
+analysis(){const cut=cutVal(),P=[];
+ const cats=`<div class="pills">${CATS.map(c=>`<button class="pill ${c==S.cat?"on":""}" data-cat="${c}">${c}</button>`).join("")}</div>`;
+ const mk=(v)=>`<div class="bar mk"><i style="width:${Math.min(100,v/2)}%"></i><u style="left:${cut/2}%"></u></div>`;
+ let behind=[];
+ if(done.length){const last=done[done.length-1],tg=Math.round(cut/4);
+  P.push(`<div class="card"><h3>${t("an_cut")}</h3>${cats}<div class="kv"><span>${t("best")}</span><b>${best}/200</b></div><div class="kv"><span>${t("cutoff")} (${S.cat})</span><b>${cut}</b></div><p style="margin:12px 0 0">${f(best>=cut?"above":"short",{n:Math.abs(best-cut),c:S.cat,m:cut})}</p><h3 style="margin-top:20px">${t("trend")}</h3>${done.map((m,i)=>`<div class="sec"><span style="width:76px">${n("Mock")} ${i+1}</span>${mk(m.score)}<b style="width:44px">${m.score}</b></div>`).join("")}<p class="note">${t("sampleCut")}</p></div>`);
+  const rowsH=SECN.map((sn,i)=>{const l=last.secs[i],a=Math.round(done.reduce((x,m)=>x+m.secs[i],0)/done.length),g=l-tg;if(g<0)behind.push([sn,-g]);return `<tr><td>${n(sn)}</td><td>${l}/50</td><td>${a}/50</td><td>${tg}</td><td>${g>=0?"+":""}${g}</td></tr>`}).join("");
+  P.push(`<div class="card"><h3>${t("secMarks")}</h3><div class="xs"><table><tr><th>${t("sec")}</th><th>${t("latest")}</th><th>${t("avgS")}</th><th>${t("target")}</th><th>${t("gap")}</th></tr>${rowsH}</table></div></div>`)}
+ else P.push(`<div class="card"><h3>${t("an_cut")}</h3><p class="note" style="margin:0">${t("lockCut")}</p></div>`);
+ const E=Object.entries(D.acc),strong=E.filter(([,p])=>p>=70).sort((a,b)=>b[1]-a[1]),mid=E.filter(([,p])=>p>=50&&p<70).sort((a,b)=>a[1]-b[1]),weak=E.filter(([,p])=>p<50).sort((a,b)=>a[1]-b[1]);
+ const tl=(a,e)=>a.length?a.map(([x,p])=>`<div class="sec"><span style="width:160px">${n(x)}</span>${bar(p)}<b>${p}%</b></div>`).join(""):`<p class="note" style="margin:0">${e}</p>`;
+ P.push(`<div class="card"><h3>${t("strong")}</h3>${tl(strong,t("noneS"))}</div>`,`<div class="card"><h3>${t("weakT")}</h3>${tl(weak,t("noneW"))}</div>`,`<div class="card"><h3>${t("needs")}</h3>${tl(mid,t("noneN"))}</div>`);
+ const tips=[];weak.slice(0,3).forEach(([x,p])=>tips.push(f("tip1",{t:n(x),p})));behind.forEach(([sn,g])=>tips.push(f("tip2",{s:n(sn),n:g})));
+ if(done.length){if(best<cut)tips.push(f("tip3",{n:cut-best,c:S.cat,x:Math.ceil((cut-best)/4)}));else tips.push(t("tipOk"))}
+ strong.slice(0,2).forEach(([x,p])=>tips.push(f("tip4",{t:n(x),p})));
+ P.push(`<div class="card"><h3>${t("improve")}</h3><ul class="tips">${tips.map(x=>`<li>${x}</li>`).join("")}</ul></div>`);
+ return `<div class="stack">${P.join("")}</div>`},
+cutoff(){const cats=`<div class="pills">${CATS.map(c=>`<button class="pill ${c==S.cat?"on":""}" data-cat="${c}">${c}</button>`).join("")}</div>`;
+ return cats+chartsH()+`<div class="xs" style="margin-top:18px"><table><tr><th>${t("cCat")}</th><th>${t("cMarks")}</th><th>${t("cBest")}</th><th>${t("gap")}</th></tr>${D.cutoff.map(r=>{const g=best-r[1];return `<tr class="${r[0]==S.cat?"hl":""}"><td>${r[0]}</td><td>${r[1]}</td><td>${best}/200</td><td>${g>=0?"+":""}${g}</td></tr>`}).join("")}</table></div><p class="note">${t("sampleCut")}</p>`}
+};
+function side(){return subH()+`<div class="card"><h3>${t("perf")}</h3><div class="kv"><span>${t("done")}</span><b>${done.length} ${t("ofT")} ${D.mocks.length}</b></div><div class="kv"><span>${t("avg")}</span><b>${avg}/200</b></div><div class="kv"><span>${t("best")}</span><b>${best}/200</b></div></div>
+ <div class="card" style="margin-top:14px"><h3>${t("secAcc")}</h3>${Object.keys(D.topics).map(s=>`<div class="sec"><span>${n(s)}</span>${bar(secAcc(s))}<b>${secAcc(s)}%</b></div>`).join("")}</div>
+ ${done.length?`<div class="card" style="margin-top:14px"><h3>${t("cutSnap")} · ${S.cat}</h3><div class="kv"><span>${t("cMarks")}</span><b>${cutVal()}</b></div><div class="kv"><span>${t("best")}</span><b>${best}</b></div><div class="kv"><span>${t("gap")}</span><b>${best-cutVal()>=0?"+":""}${best-cutVal()}</b></div></div>`:""}
+ ${goalsH()}<p class="note">${t("sample")}</p>`}
+const goalsH=()=>{const g=S.goals||[0,0,0],c=g.filter(Boolean).length;return `<div class="card goals" style="margin-top:14px"><h3>${t("goalT")}</h3>${["g1","g2","g3"].map((k,i)=>`<button class="gl ${g[i]?"on":""}" data-goal="${i}"><i>${g[i]?"✓":""}</i>${t(k)}</button>`).join("")}${bar(Math.round(c/3*100))}<p class="note" style="margin:8px 0 0">${c==3?t("gAll"):f("gDone",{n:c})}</p></div>`};
+function popHtml(){const p=$("#pop");p.hidden=!pop;p.innerHTML=`<h6>${t("colour")}</h6><div class="sws">${Object.entries(THEMES).map(([k,v])=>`<button class="sw ${k==S.color?"on":""}" style="background:${v}" data-c="${k}" title="${k}" aria-label="${k}"></button>`).join("")}</div><h6>${t("layout")}</h6><div class="pills">${[["two","lTwo"],["one","lOne"]].map(([k,l])=>`<button class="pill ${k==S.layout?"on":""}" data-l="${k}">${t(l)}</button>`).join("")}</div><h6>${t("language")}</h6><div class="pills">${[["en","English"],["hi","हिन्दी"]].map(([k,l])=>`<button class="pill ${k==S.lang?"on":""}" data-n="${k}">${l}</button>`).join("")}</div><h6>${t("theme")}</h6><div class="pills">${[["auto","tAuto"],["light","tLight"],["dark","tNight"]].map(([k,l])=>`<button class="pill ${k==S.theme?"on":""}" data-th="${k}">${t(l)}</button>`).join("")}</div>${CFG.fromSite?"":`<h6>${t("prevPlan")}</h6><div class="pills">${["free","pro","premium"].map(k=>`<button class="pill ${k==(S.plan||CFG.plan)?"on":""}" data-pl="${k}">${PLAN_NAME[k]}</button>`).join("")}</div>`}`;
+ p.querySelectorAll("[data-th]").forEach(b=>b.onclick=()=>{S.theme=b.dataset.th;save();go()});p.querySelectorAll("[data-pl]").forEach(b=>b.onclick=()=>{S.plan=b.dataset.pl;save();go()});
+ p.querySelectorAll("[data-c]").forEach(b=>b.onclick=()=>{S.color=b.dataset.c;save();go()});p.querySelectorAll("[data-l]").forEach(b=>b.onclick=()=>{S.layout=b.dataset.l;save();go()});p.querySelectorAll("[data-n]").forEach(b=>b.onclick=()=>{S.lang=b.dataset.n;save();go()})}
+function go(){if(!tabsL().includes(cur))cur="dashboard";{const c=THEMES[S.color]||THEMES.Blue,r=document.documentElement.style;r.setProperty("--ac",c);r.setProperty("--btn",c);r.setProperty("--btn-h","color-mix(in srgb,"+c+" 78%,#000)")}applyTheme();document.body.className="lay-"+S.layout+(ani?" ani":"");if(ani)setTimeout(()=>document.body.classList.remove("ani"),1400);ani=false;document.documentElement.lang=S.lang;
+ $("#q").placeholder=t("search");$("#h1").textContent=S.lang=="hi"?t("title"):CFG.exam+" Test Series";$("#plan").textContent=planLine();$(".exam").textContent=CFG.exam+" ▾";$(".av").textContent=(CFG.name||"S")[0].toUpperCase();emHtml();$("#cta").textContent=t("cta");
+ $("#chips").innerHTML=`<div class="ph"><div class="ico">E</div><div><small>${t("prog")}</small><b>${CFG.exam}</b></div></div><div class="pm"><span>100 ${t("qs")}</span><span>200 ${t("marks")}</span><span>60 ${t("mins")}</span></div>`+[["done",Math.round(done.length/(D.mocks.length||1)*100),done.length+"/"+D.mocks.length],["avg",Math.round(avg/2),avg+"/200"],["best",Math.round(best/2),best+"/200"]].concat(done.length?[["vsCut",Math.min(100,Math.round(best/cutVal()*100)),best+"/"+cutVal()]]:[]).map(([k,p,v])=>`<div class="pr"><span>${t(k)}</span>${bar(p)}<b>${v}</b></div>`).join("");
+ $("#tabs").innerHTML=tabsL().map(k=>`<button class="${k==cur?"on":""}" data-k="${k}">${t(k)}</button>`).join("");
+ $("#tabs").querySelectorAll("button").forEach(b=>b.onclick=()=>{cur=b.dataset.k;ani=true;try{location.hash=cur}catch(e){}go()});
+ const m=$("#main");m.innerHTML=V[cur]();
+ m.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{secF=b.dataset.f;go()});m.querySelectorAll("[data-g]").forEach(b=>b.onclick=()=>{gkF=b.dataset.g;go()});m.querySelectorAll("[data-cat]").forEach(b=>b.onclick=()=>{S.cat=b.dataset.cat;save();go()});
+ $("#side").innerHTML=side();popHtml();
+document.querySelectorAll("[data-up]").forEach(b=>b.onclick=()=>openUp());
+ m.querySelectorAll("[data-mf]").forEach(b=>b.onclick=()=>{mkF=b.dataset.mf;ani=true;go()});
+ m.querySelectorAll(".go").forEach(b=>b.onclick=()=>b.dataset.lock?openUp():openT(b.dataset));
+ $("#side").querySelectorAll("[data-goal]").forEach(b=>b.onclick=()=>{S.goals=S.goals||[0,0,0];S.goals[b.dataset.goal]^=1;save();go()})}
+let tmr=null;const md=$("#md"),mb=$("#mb");
+function closeT(){clearInterval(tmr);md.hidden=true}
+function openT(d){const pdf=!+d.q,nm=n(d.t);
+ mb.innerHTML=`<h3>${pdf?nm:t("ready")}</h3>${pdf?`<p>${t("pdfMsg")}</p>`:`<p class="mt">${nm}</p><div class="facts"><div><b>${d.q}</b>${t("qs")}</div><div><b>${d.m}</b>${t("marks")}</div><div><b>${d.min}</b>${t("mins")}</div></div><p class="note">${t("lang2")}</p>`}<div class="mbtn"><button class="btn out sm" id="mc">${t("cancel")}</button>${pdf?"":`<button class="btn sm" id="mg">${t("begin")}</button>`}</div>`;
+ md.hidden=false;$("#mc").onclick=closeT;
+ if(!pdf)$("#mg").onclick=()=>{let sec=d.min*60;const draw=()=>{$("#tm").textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0")};
+  mb.innerHTML=`<p class="mt">${nm}</p><div class="clock"><small>${t("timeLeft")}</small><b id="tm"></b></div>${bar(100).replace('<i ','<i id="tb" ')}<div class="mbtn"><button class="btn sm" id="ms">${t("submit")}</button></div>`;draw();
+  tmr=setInterval(()=>{sec--;draw();$("#tb").style.width=(sec/(d.min*60)*100)+"%";if(sec<=0)fin()},1000);
+  const fin=()=>{closeT();const e=$("#toast");e.textContent=t("sub");e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2600)};$("#ms").onclick=fin}}
+md.onclick=e=>{if(e.target==md)closeT()};
+document.addEventListener("keydown",e=>{if(e.key=="Escape"&&!md.hidden)closeT()});
+
+const toast=m=>{const e=$("#toast");e.textContent=m;e.classList.add("show");setTimeout(()=>e.classList.remove("show"),2800)};
+function openUp(name){const ex=name||CFG.exam;
+ mb.innerHTML=`<h3>${t("upT")}</h3><p class="mt">${ex}</p><div class="plans"><div><b>Full access</b><span>All mocks, subject and topic tests, past papers, GK notes and cutoff analysis</span></div></div><div class="mbtn"><button class="btn out sm" id="mc">${t("later")}</button><button class="btn sm" id="mg">${t("plans")}</button></div>`;
+ md.hidden=false;$("#mc").onclick=closeT;
+ $("#mg").onclick=()=>{closeT();try{window.parent.postMessage({type:"ep-upgrade",exam:CFG.examId,plan:planNow()},"*")}catch(e){}if(CFG.upgradeUrl)location.href=CFG.upgradeUrl;else toast(t("noSite"))}}
+let emOpen=false;
+function emHtml(){const p=$("#em");p.hidden=!emOpen;p.innerHTML=`<h6>${t("examL")}</h6>`+CFG.exams.map(x=>`<button class="ex" data-ex="${x.id}"><span>${x.name}</span><span class="chip ${x.owned?"pro":"free"}">${x.owned?(x.id==CFG.examId?t("active"):t("owned")):"🔒"}</span></button>`).join("");
+ p.querySelectorAll("[data-ex]").forEach(b=>b.onclick=()=>{const x=CFG.exams.find(e=>e.id==b.dataset.ex);emOpen=false;emHtml();if(!x.owned)return openUp(x.name);if(x.id==CFG.examId)return;try{window.parent.postMessage({type:"ep-switch-exam",exam:x.id},"*")}catch(e){}toast(t("switchMsg"))})}
+$(".exam").onclick=e=>{e.stopPropagation();emOpen=!emOpen;pop=false;popHtml();emHtml()};
+document.addEventListener("click",e=>{if(emOpen&&!e.target.closest("#em")&&!e.target.closest(".exam")){emOpen=false;emHtml()}},true);
+window.addEventListener("message",e=>{if(!TRUSTED_ORIGINS.includes(e.origin)||!e.data||e.data.type!="ep-config")return;const c=e.data.config||{};Object.assign(CFG,c,{fromSite:true});if(c.data){Object.assign(D,c.data);recalc()}if(c.exam&&!c.exams)CFG.exams=[{id:CFG.examId,name:CFG.exam,owned:true}];ani=true;go()});
+$("#q").oninput=e=>{q=e.target.value.toLowerCase();go()};
+$("#cta").onclick=()=>{cur="mocks";go()};
+$("#set").onclick=e=>{e.stopPropagation();pop=!pop;emOpen=false;emHtml();popHtml()};
+document.addEventListener("click",e=>{if(pop&&!e.target.closest("#pop")&&!e.target.closest("#set")){pop=false;popHtml()}},true);
+document.addEventListener("keydown",e=>{if(e.key=="Escape"&&pop){pop=false;popHtml()}});
+try{const h=location.hash.slice(1);if(V[h])cur=h}catch(e){}
+try{window.parent!==window&&window.parent.postMessage({type:"ep-ready"},"*")}catch(e){}
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script>
+/* ===================== LIVE DATA + PURCHASE UNLOCK ===================== */
+(function(){
+/* ---- EASY SETTINGS ---- */
+var ADMINS=['examplanner.pack@gmail.com'];          // these emails always get full access
+var FREE_MOCKS=1;                                     // how many full mocks are free for everyone
+var SEC_SET=25, TOP_N=15, SEC_PER_Q=36;               // questions per sectional set / topic test, seconds per question
+var GK_PDFS=[];                                       // your own PDFs, e.g. {name:'Indian History Notes',url:'/files/history.pdf',pages:48}
+var CUTOFFS=[["UR",153],["EWS",142],["OBC",146],["SC",126],["ST",112],["ESM",70],["OH",113],["HH",65],["VH",103]];
+var PAST_CUTOFFS={2024:{UR:153,EWS:142,OBC:146,SC:126,ST:112,ESM:70,OH:113,HH:65,VH:103}};
+var NOTES={
+"Polity":["Constitution adopted 26 Nov 1949, effective 26 Jan 1950.","Fundamental Rights: Articles 12–35. Duties: Article 51A (42nd Amendment).","Art. 14 equality, 19 freedoms, 21 life and liberty, 32 remedies.","President is elected indirectly; PM heads the Council of Ministers."],
+"History":["Plassey 1757, Buxar 1764, Revolt of 1857.","Mauryas: Chandragupta (founder), Bindusara, Ashoka (Kalinga war 261 BCE).","Gandhi: Champaran 1917, Non-Cooperation 1920, Dandi March 1930, Quit India 1942."],
+"Geography":["Ganga is the longest river within India; Godavari the longest in peninsular India.","Tropic of Cancer passes through 8 Indian states.","Highest peak in India: Kangchenjunga."],
+"Economy":["RBI set up 1935, nationalised 1949. NITI Aayog replaced Planning Commission in 2015.","Repo rate: rate at which RBI lends to banks.","GDP = value of final goods and services in a year."],
+"Science":["Na sodium, K potassium, Fe iron, Au gold, Ag silver.","Vitamin C: scurvy; D: rickets; A: night blindness; B1: beri-beri.","Speed of light about 3×10⁸ m/s; unit of force: Newton."],
+"Maths shortcuts":["km/h to m/s: ×5/18.","Time & Work: take LCM as total units.","Rank total = top + bottom − 1.","SI = PRT/100; Profit% = Profit/CP × 100."]};
+/* ---- END SETTINGS ---- */
+
+var SSC_RE=/(^|[^a-z])(ssc|cgl|chsl|mts|cpo|stenographer)([^a-z]|$)/i;
+var PYP_RE=/(19|20)\d\d|paper|shift|pyq|previous|past year/i;
+var GROUPS=[["Quant",/quant|math|numer|aptitude|arith/i,"Quantitative Aptitude"],["Reasoning",/reason|logic|intellig/i,"Reasoning"],["English",/english|compre|grammar|verbal|vocab/i,"English"],["GK",/general|awareness|\bgk\b|\bgs\b|current|static/i,"General Awareness"]];
+var auth,db,U=null,ADMIN=false,KEY="ep_guest",REG={},REGPDF={},NOTEST=false,E=null,etm=null;
+var esc=function(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]})};
+var nm=function(s){return String(s||"").replace(/"/g,"'")};
+var fmt=function(s){s=Math.max(0,s);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
+var shuf=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),x=a[i];a[i]=a[j];a[j]=x}return a};
+function grp(q){var i;for(i=0;i<GROUPS.length;i++)if(GROUPS[i][1].test(q.s||""))return GROUPS[i][0];for(i=0;i<GROUPS.length;i++)if(GROUPS[i][1].test(q.t||""))return GROUPS[i][0];return null}
+function getState(){try{return JSON.parse(localStorage.getItem(KEY))||{att:{},tp:{}}}catch(e){return{att:{},tp:{}}}}
+function putState(s){try{localStorage.setItem(KEY,JSON.stringify(s))}catch(e){}}
+
+/* ---------- load tests from the admin panel ---------- */
+async function loadData(){
+  var list=[];
+  try{
+    var snap=await db.collection("tests").get();
+    snap.forEach(function(d){try{var t=JSON.parse(d.data().data);if(t&&t.status==="published"&&/cgl/i.test((t.exam||"")+" "+(t.name||""))&&(t.qs||[]).length)list.push(t)}catch(e){}});
+  }catch(e){console.warn("tests:",e.message)}
+  list.forEach(function(t){t.qs=(t.qs||[]).filter(function(q){return q&&q.q&&Array.isArray(q.o)&&q.o.length>1&&typeof q.a==="number"}).map(function(q){return{s:q.s||"Section 1",t:q.t||"General",q:q.q,o:q.o,a:q.a,e:q.e||""}})});
+  list=list.filter(function(t){return t.qs.length});
+  list.sort(function(a,b){return String(a.name).localeCompare(String(b.name),undefined,{numeric:true})});
+  NOTEST=!list.length;REG={};REGPDF={};
+  var pos=(list[0]&&+list[0].pos)||2,neg=(list[0]&&list[0].neg!=null)?+list[0].neg:0.5;
+  var mocks=list.filter(function(t){return!PYP_RE.test(t.name||"")}),pyp=list.filter(function(t){return PYP_RE.test(t.name||"")});
+  var mins=function(t,n){return t.mins>0?+t.mins:Math.ceil(n*SEC_PER_Q/60)};
+  D.mocks=mocks.map(function(t,i){var name=nm(t.name);REG[name]={qs:t.qs,pos:+t.pos||pos,neg:t.neg!=null?+t.neg:neg,secs:mins(t,t.qs.length)*60,kind:"mock"};return{name:name,k:"FM",q:t.qs.length,m:200,min:mins(t,t.qs.length),free:i<FREE_MOCKS,score:null,secs:null}});
+  D.pyp=pyp.map(function(t){var name=nm(t.name),p=+t.pos||pos;REG[name]={qs:t.qs,pos:p,neg:t.neg!=null?+t.neg:neg,secs:mins(t,t.qs.length)*60,kind:"pyp"};return{name:name,k:"PYP",q:t.qs.length,m:t.qs.length*p,min:mins(t,t.qs.length),free:false,score:null}});
+  var bank=[],seen={};
+  list.forEach(function(t){t.qs.forEach(function(q){if(seen[q.q])return;seen[q.q]=1;var g=grp(q);if(g)bank.push({s:q.s,t:q.t,q:q.q,o:q.o,a:q.a,e:q.e,g:g})})});
+  D.sectional=[];D.topics={Quant:[],Reasoning:[],English:[],GK:[]};D.gktests=[];
+  GROUPS.forEach(function(G){
+    var qs=bank.filter(function(q){return q.g===G[0]});
+    var sets=Math.min(12,Math.max(qs.length>=5?1:0,Math.ceil(qs.length/SEC_SET)));
+    for(var i=0;i<sets;i++){var part=qs.slice(i*SEC_SET,(i+1)*SEC_SET);if(part.length<5&&i>0)break;var name=G[2]+" Sectional "+(i+1);REG[name]={qs:part,pos:pos,neg:neg,secs:part.length*SEC_PER_Q,kind:"sec"};D.sectional.push({sec:G[0],name:name,k:G[0][0],q:part.length,m:part.length*pos,min:Math.ceil(part.length*SEC_PER_Q/60),free:i===0,score:null})}
+    var tp={};qs.forEach(function(q){tp[q.t]=(tp[q.t]||0)+1});
+    Object.keys(tp).sort().forEach(function(tn){var name=nm(tn),sub=qs.filter(function(q){return q.t===tn});D.topics[G[0]].push(name);REG[name]={dyn:sub,pos:pos,neg:neg,n:TOP_N,kind:"top"};if(G[0]==="GK"){var gn=name+" Topic Test";REG[gn]={dyn:sub,pos:pos,neg:neg,n:TOP_N,kind:"top"};D.gktests.push([gn,Math.min(TOP_N,sub.length)])}});
+  });
+  var gkAll=bank.filter(function(q){return q.g==="GK"});
+  if(gkAll.length){REG["Full GK Test (Mixed)"]={dyn:gkAll,pos:pos,neg:neg,n:25,kind:"top"};D.gktests.unshift(["Full GK Test (Mixed)",Math.min(25,gkAll.length)])}
+  D.gkpdf=[];
+  GK_PDFS.forEach(function(p,i){D.gkpdf.push([nm(p.name),p.pages||1,i>0?1:0]);REGPDF[nm(p.name)]={url:p.url}});
+  Object.keys(NOTES).forEach(function(k,i){var name="GK Quick Notes: "+k;D.gkpdf.push([name,1,(GK_PDFS.length+i)>0?1:0]);REGPDF[name]={notes:k}});
+  D.cutoff=CUTOFFS.map(function(r){return r.slice()});D.pyc=JSON.parse(JSON.stringify(PAST_CUTOFFS));D.acc={};
+  applyState();
+}
+function applyState(){
+  var st=getState();
+  D.mocks.concat(D.pyp,D.sectional).forEach(function(o){var a=st.att[o.name];if(a){o.score=a.score;if(a.secs)o.secs=a.secs}});
+  D.acc={};
+  Object.keys(D.topics).forEach(function(g){D.topics[g].forEach(function(t){var v=st.tp[t];if(v&&v[1]>0)D.acc[t]=Math.round(v[0]/v[1]*100)})});
+}
+
+/* ---------- test screen ---------- */
+var css=document.createElement("style");
+css.textContent=".epx{position:fixed;inset:0;z-index:60;background:var(--bg,#fff);color:var(--ink);overflow:auto;padding:0 0 40px}.epx .in{max-width:860px;margin:0 auto;padding:16px}.epx .tp{position:sticky;top:0;z-index:2;background:var(--card,#fff);border-bottom:1px solid var(--line);padding:10px 16px;display:flex;gap:12px;align-items:center;justify-content:space-between}.epx .tp b{font-size:15px}.epx .tm{font-variant-numeric:tabular-nums;font-weight:700;font-size:18px}.epx .qc{background:var(--card,#fff);border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}.epx .qm{color:var(--mut);font-size:12.5px}.epx .qt{font-size:16px;font-weight:600;margin:8px 0 10px}.epx .op{display:block;width:100%;text-align:left;margin:8px 0;padding:12px;border:1.5px solid var(--line);border-radius:10px;background:var(--card,#fff);color:var(--ink)}.epx .op.sel{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,var(--card,#fff))}.epx .rw{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.epx .pl{display:flex;flex-wrap:wrap;gap:6px}.epx .pl button{width:34px;height:34px;border-radius:8px;border:1px solid var(--line);background:var(--card,#fff);font-weight:600}.epx .pl .an{background:#2f9e6b;color:#fff;border-color:#2f9e6b}.epx .pl .mk{background:#d99a00;color:#fff;border-color:#d99a00}.epx .pl .cu{outline:2px solid var(--ac)}.epx .ok{color:#2f9e6b}.epx .no{color:#d23b3b}.epx table{width:100%;border-collapse:collapse}.epx td,.epx th{padding:7px 6px;border-bottom:1px solid var(--line);text-align:left;font-size:14px}.epx .ex{background:color-mix(in srgb,var(--ac) 8%,var(--card,#fff));border-left:4px solid #2f9e6b;border-radius:6px;padding:10px;margin-top:8px}.epx .big{font-size:42px;font-weight:700;letter-spacing:-.03em}.epx .sgs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}";
+document.head.appendChild(css);
+function overlay(){var o=document.getElementById("epx");if(!o){o=document.createElement("div");o.id="epx";o.className="epx";document.body.appendChild(o)}return o}
+function closeTest(){clearInterval(etm);E=null;var o=document.getElementById("epx");if(o)o.remove();document.body.style.overflow="";recalc();go()}
+function startTest(name,qs,o){
+  if(!qs.length){toast("No questions in this test yet.");return}
+  E={name:name,qs:qs,pos:o.pos,neg:o.neg,kind:o.kind,ans:qs.map(function(){return null}),mk:qs.map(function(){return false}),i:0,left:o.secs};
+  document.body.style.overflow="hidden";clearInterval(etm);
+  etm=setInterval(function(){E.left--;var e=document.getElementById("eptm");if(e)e.textContent=fmt(E.left);if(E.left<=0)submitTest()},1000);
+  drawQ();
+}
+function drawQ(){
+  var q=E.qs[E.i],gs=[],x="";E.qs.forEach(function(z){if(gs.indexOf(z.s)<0)gs.push(z.s)});
+  x+='<div class="tp"><b>'+esc(E.name)+'</b><span class="tm" id="eptm">'+fmt(E.left)+'</span></div><div class="in">';
+  if(gs.length>1)x+='<div class="sgs">'+gs.map(function(s){return'<button class="btn out sm" style="'+(q.s===s?"border-color:var(--ac)":"")+'" onclick="__ep.jump('+E.qs.findIndex(function(z){return z.s===s})+')">'+esc(s)+'</button>'}).join("")+'</div>';
+  x+='<div class="qc"><div class="qm">Question '+(E.i+1)+' of '+E.qs.length+' · '+esc(q.s)+' · '+esc(q.t)+'</div><div class="qt">'+esc(q.q)+'</div>'+q.o.map(function(o,j){return'<button class="op '+(E.ans[E.i]===j?"sel":"")+'" onclick="__ep.pick('+j+')">'+"ABCDEF"[j]+". "+esc(o)+'</button>'}).join("")+'<div class="rw"><button class="btn out sm" onclick="__ep.jump(__ep.i()-1)">← Previous</button><button class="btn out sm" onclick="__ep.mark()">'+(E.mk[E.i]?"Unmark":"Mark for review")+'</button><button class="btn out sm" onclick="__ep.clear()">Clear</button><button class="btn sm" onclick="__ep.jump(__ep.i()+1)">Next →</button></div></div>';
+  x+='<div class="qc"><div class="pl">'+E.qs.map(function(z,i){return'<button class="'+(E.mk[i]?"mk":E.ans[i]!==null?"an":"")+" "+(i===E.i?"cu":"")+'" onclick="__ep.jump('+i+')">'+(i+1)+'</button>'}).join("")+'</div><p class="qm">Green answered · Yellow marked for review</p><div class="rw"><button class="btn out sm" onclick="if(confirm(\'Leave this test? Your answers will be lost.\'))__ep.close()">Exit</button><button class="btn sm" onclick="if(confirm(\'Submit the test?\'))__ep.submit()">Submit test</button></div></div></div>';
+  overlay().innerHTML=x;
+}
+function submitTest(){
+  clearInterval(etm);if(!E)return;
+  var st=getState(),sec={},gsum={},tot=0,cor=0,wr=0,n=E.qs.length;
+  E.qs.forEach(function(q,i){var a=E.ans[i],ok=a===q.a,sc=a===null?0:ok?E.pos:-E.neg;tot+=sc;if(ok)cor++;else if(a!==null)wr++;
+    var d=sec[q.s]=sec[q.s]||{sc:0,c:0,n:0};d.sc+=sc;d.n++;if(ok)d.c++;
+    var g=grp(q);if(g){var z=gsum[g]=gsum[g]||{sc:0,mx:0};z.sc+=sc;z.mx+=E.pos}
+    var tp=st.tp[q.t]=st.tp[q.t]||[0,0];tp[1]++;if(ok)tp[0]++});
+  var max=+(n*E.pos).toFixed(2),score=+tot.toFixed(2),eq=Math.max(0,Math.round(score/max*200));
+  var rec;
+  if(E.kind==="mock"){rec={score:eq,secs:SECN.map(function(g){var z=gsum[g];return z&&z.mx?Math.max(0,Math.round(z.sc/z.mx*50)):0})}}
+  else if(E.kind==="pyp"||E.kind==="sec"){rec={score:Math.max(0,Math.round(score))}}
+  if(rec)st.att[E.name]=rec;
+  putState(st);applyState();
+  var x='<div class="tp"><b>Result: '+esc(E.name)+'</b><button class="btn sm" onclick="__ep.close()">Back to dashboard</button></div><div class="in"><div class="qc" style="text-align:center"><div class="big">'+score+' <span class="qm" style="font-size:16px">/ '+max+'</span></div><p><span class="ok">✔ '+cor+' correct</span> · <span class="no">✘ '+wr+' wrong</span> · '+(n-cor-wr)+' skipped · Accuracy '+Math.round(cor/n*100)+'%</p>';
+  if(E.kind==="mock"){var cv=(D.cutoff.find(function(r){return r[0]==S.cat})||D.cutoff[0]),d=eq-cv[1];x+='<p>Scaled to 200 marks: <b>'+eq+'</b> · '+esc(cv[0])+' cutoff (2024): <b>'+cv[1]+'</b> · <b class="'+(d>=0?"ok":"no")+'">'+(d>=0?"+":"")+d+' marks</b></p>'}
+  x+='</div><div class="qc"><b>Section-wise score</b><table><tr><th>Section</th><th>Score</th><th>Correct</th></tr>'+Object.keys(sec).map(function(s){return'<tr><td>'+esc(s)+'</td><td>'+(+sec[s].sc.toFixed(2))+' / '+(sec[s].n*E.pos)+'</td><td>'+sec[s].c+'/'+sec[s].n+'</td></tr>'}).join("")+'</table></div>';
+  x+='<h3>Answers and explanations</h3>'+E.qs.map(function(q,i){var a=E.ans[i];return'<div class="qc"><div class="qm">Q'+(i+1)+' · '+esc(q.s)+' · '+esc(q.t)+'</div><div class="qt">'+esc(q.q)+'</div><div>Your answer: <b class="'+(a===q.a?"ok":"no")+'">'+(a===null?"Skipped":"ABCDEF"[a]+". "+esc(q.o[a]))+'</b><br>Correct: <b class="ok">'+"ABCDEF"[q.a]+". "+esc(q.o[q.a])+'</b></div>'+(q.e?'<div class="ex"><b>Explanation:</b> '+esc(q.e)+'</div>':"")+'</div>'}).join("")+'<div class="rw"><button class="btn sm" onclick="__ep.close()">Back to dashboard</button></div></div>';
+  E.done=true;overlay().innerHTML=x;overlay().scrollTop=0;
+}
+window.__ep={i:function(){return E?E.i:0},jump:function(i){if(E&&!E.done&&i>=0&&i<E.qs.length){E.i=i;drawQ()}},pick:function(j){E.ans[E.i]=j;drawQ()},clear:function(){E.ans[E.i]=null;drawQ()},mark:function(){E.mk[E.i]=!E.mk[E.i];drawQ()},submit:submitTest,close:closeTest};
+
+/* ---------- open a test or a PDF from the dashboard ---------- */
+function openNotes(k){
+  var w=window.open("","_blank");if(!w){toast("Allow pop-ups to open the notes");return}
+  w.document.write('<!doctype html><meta charset="utf-8"><title>'+esc(k)+'</title><style>body{font:16px/1.6 system-ui,sans-serif;max-width:720px;margin:30px auto;padding:0 16px}h1{font-size:22px}li{margin:6px 0}@media print{button{display:none}}</style><button onclick="print()" style="padding:8px 14px;margin-bottom:12px">Print / Save as PDF</button><h1>SSC CGL Tier 1: '+esc(k)+'</h1><ul>'+NOTES[k].map(function(l){return"<li>"+esc(l)+"</li>"}).join("")+'</ul>');
+  w.document.close();
+}
+openT=function(d){
+  var name=d.t,p=REGPDF[name];
+  if(p){if(p.url)window.open(p.url,"_blank");else openNotes(p.notes);return}
+  var r=REG[name];if(!r){toast("This test is not available yet.");return}
+  var qs=r.dyn?shuf(r.dyn).slice(0,r.n):r.qs.slice();
+  var secs=r.dyn?qs.length*SEC_PER_Q:r.secs;
+  var pre=function(c){return{s:c.s,t:c.t,q:c.q,o:c.o,a:c.a,e:c.e}};
+  var MB=document.getElementById("mb"),MD=document.getElementById("md");
+  MB.innerHTML='<h3>'+t("ready")+'</h3><p class="mt">'+esc(name)+'</p><div class="facts"><div><b>'+qs.length+'</b>'+t("qs")+'</div><div><b>+'+r.pos+' / −'+r.neg+'</b>Marking</div><div><b>'+Math.ceil(secs/60)+'</b>'+t("mins")+'</div></div><div class="mbtn"><button class="btn out sm" id="mc">'+t("cancel")+'</button><button class="btn sm" id="mg">'+t("begin")+'</button></div>';
+  MD.hidden=false;document.getElementById("mc").onclick=function(){MD.hidden=true};
+  document.getElementById("mg").onclick=function(){MD.hidden=true;startTest(name,qs.map(pre),{pos:r.pos,neg:r.neg,secs:secs,kind:r.kind})};
+};
+
+/* ---------- header buttons, notices, plan from purchase ---------- */
+function headerButtons(){
+  var nav=document.querySelector(".nav"),av=document.querySelector(".av");if(!nav||!av)return;
+  var old=document.getElementById("epAcct");if(old)old.remove();
+  var b=document.createElement(U?"button":"a");b.id="epAcct";b.className="btn out sm";
+  if(U){b.textContent="Log out";b.onclick=function(){auth.signOut().then(function(){location.href="/"})}}else{b.textContent="Log in";b.href="/#app"}
+  var w=document.createElement("a");w.id="epWeb";w.className="btn out sm";w.href="/";w.textContent="← Website";
+  var ow=document.getElementById("epWeb");if(ow)ow.remove();
+  nav.insertBefore(w,av);nav.insertBefore(b,av);
+}
+var od=V.dashboard;
+V.dashboard=function(){
+  var n=NOTEST?'<div class="card banner"><div><b>'+(ADMIN?"No published SSC CGL tests found":"Tests are being added")+'</b><p>'+(ADMIN?"In the admin panel, set the exam to “SSC CGL” and publish your tests. They appear here automatically.":"Check back soon. New mocks and topic tests are coming.")+'</p></div></div>':"";
+  return n+od();
+};
+async function boot(u){
+  U=u;ADMIN=!!(u&&ADMINS.indexOf((u.email||"").toLowerCase())>-1);KEY="ep_"+(u?u.uid:"guest");
+  var plan="free",until="2099-12-31",exams=[];
+  if(ADMIN){plan="premium"}
+  else if(u){
+    try{var r=await db.collection("entitlements").doc((u.email||"").toLowerCase()).get();
+      if(r.exists){exams=r.data().exams||[];if(exams.some(function(x){return SSC_RE.test(String(x))})){plan="premium";until=r.data().until||until}}
+    }catch(e){console.warn("plan:",e.message)}
+  }
+  CFG.fromSite=true;CFG.plan=plan;CFG.expiry=until;CFG.exam="SSC CGL Tier 1";CFG.examId="ssc-cgl";
+  CFG.name=u?(u.displayName||(u.email||"S").split("@")[0]):"Guest";CFG.upgradeUrl="/#plans";
+  CFG.exams=[{id:"ssc-cgl",name:"SSC CGL Tier 1",owned:plan!=="free"}];
+  await loadData();recalc();headerButtons();ani=true;go();
+}
+firebase.initializeApp({apiKey:"AIzaSyDJrdu7luclBLm3wGcz8C3jZfGNlc4RSRc",authDomain:"admin-panel-d9ffa.firebaseapp.com",projectId:"admin-panel-d9ffa",storageBucket:"admin-panel-d9ffa.firebasestorage.app",messagingSenderId:"830924198451",appId:"1:830924198451:web:d16560fbd81b0fe0c38946"});
+auth=firebase.auth();db=firebase.firestore();
+auth.onAuthStateChanged(boot);
+})();
+</script>
+
+</body>
+</html>
