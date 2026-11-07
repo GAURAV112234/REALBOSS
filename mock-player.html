@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Full mock test — PrepPilot</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--ink:#14213d;--mut:#5b6478;--line:#dfe3ee;--acc:#1d4ed8;--ok:#15803d;--bad:#b91c1c;--warn:#b45309}
+@media(prefers-color-scheme:dark){:root{--bg:#0e1424;--card:#172038;--ink:#e8ecf7;--mut:#9aa5c0;--line:#2a3555;--acc:#6b9bff;--ok:#4ade80;--bad:#f87171;--warn:#fbbf24}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,sans-serif}
+.wrap{max-width:1000px;margin:0 auto;padding:12px}
+button{font:inherit;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 14px;border-radius:8px;cursor:pointer}
+button.pri,button.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+button:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px}
+.bar{position:sticky;top:0;background:var(--bg);padding:8px 0;display:flex;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);z-index:5}
+.timer{font-weight:700;color:var(--warn);font-variant-numeric:tabular-nums}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}
+.test{display:grid;grid-template-columns:1fr 230px;gap:12px}@media(max-width:720px){.test{grid-template-columns:1fr}}
+.opt{display:block;width:100%;text-align:left;margin:8px 0}.opt.sel{box-shadow:inset 0 0 0 2px var(--acc);border-color:var(--acc)}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.pal button{padding:6px 0}
+.pal .ans{background:var(--ok);color:#fff}.pal .mrk{background:var(--warn);color:#fff}.pal .cur{outline:3px solid var(--acc)}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+table{width:100%;border-collapse:collapse}td,th{padding:8px;border-bottom:1px solid var(--line);text-align:left}
+.ok{color:var(--ok)}.bad{color:var(--bad)}.mut{color:var(--mut)}.big{font-size:2.2rem;font-weight:800}
+</style></head><body><div class="wrap" id="app"><p>Loading paper…</p></div>
+<script>
+const P=new URLSearchParams(location.search),EX=P.get("exam")||"cgl",ID=+P.get("id")||1,KEY="pp_mock_"+EX+"_"+ID;
+const app=document.getElementById("app"),esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+let D,Q=[],ans=[],mark=[],i=0,left=0,tick;
+const fmt=s=>Math.floor(Math.max(s,0)/60)+":"+String(Math.max(s,0)%60).padStart(2,"0");
+fetch("mocks/"+EX+"-"+String(ID).padStart(2,"0")+".json").then(r=>{if(!r.ok)throw 0;return r.json()}).then(d=>{
+ D=d;d.sections.forEach(s=>s.questions.forEach(q=>Q.push({...q,s:s.name})));intro()
+}).catch(()=>app.innerHTML=`<div class="card"><b>This mock is not published yet.</b><p><a href="student-dashboard.html">Back to dashboard</a></p></div>`);
+function intro(){
+ app.innerHTML=`<div class="card"><h1>${esc(D.title)}</h1><p>${Q.length} questions · ${D.mins} minutes · +${D.pos} correct, −${D.neg} wrong</p>
+ <table>${D.sections.map(s=>`<tr><td>${esc(s.name)}</td><td>${s.questions.length} questions</td></tr>`).join("")}</table>
+ <p class="mut">Answer, mark for review, and jump between sections freely. The test submits itself when time ends.</p>
+ <div class="row"><button class="pri" id="go">Start test</button><a href="student-dashboard.html">Back to dashboard</a></div></div>`;
+ document.getElementById("go").onclick=()=>{left=D.mins*60;tick=setInterval(()=>{left--;const e=document.getElementById("tm");if(e)e.textContent=fmt(left);if(left<=0)finish()},1000);draw()}
+}
+function draw(){
+ const q=Q[i];
+ app.innerHTML=`<div class="bar"><b>${esc(D.title)}</b><span class="timer" id="tm">${fmt(left)}</span><button class="pri" data-a="sub">Submit</button></div>
+ <div class="tabs">${D.sections.map(s=>`<button class="${s.name===q.s?"on":""}" data-sec="${esc(s.name)}">${esc(s.name)}</button>`).join("")}</div>
+ <div class="test"><div class="card"><p class="mut">Question ${i+1} of ${Q.length}</p><p><b>${esc(q.q)}</b></p>
+ ${q.o.map((o,k)=>`<button class="opt ${ans[i]===k?"sel":""}" data-o="${k}">${"ABCD"[k]}. ${esc(o)}</button>`).join("")}
+ <div class="row"><button data-a="prev">Previous</button><button data-a="mk">${mark[i]?"Unmark":"Mark for review"}</button><button data-a="clr">Clear</button><button class="pri" data-a="nxt">Save &amp; next</button></div></div>
+ <div class="card"><b>Questions</b><div class="pal" style="margin-top:8px">${Q.map((x,k)=>x.s===q.s?`<button data-q="${k}" class="${mark[k]?"mrk":ans[k]!==undefined?"ans":""} ${k===i?"cur":""}">${k+1}</button>`:"").join("")}</div>
+ <p class="mut" style="font-size:.85rem">Green answered · orange marked</p></div></div>`;
+}
+function finish(){
+ clearInterval(tick);let sc=0,by={};
+ Q.forEach((q,k)=>{const b=by[q.s]=by[q.s]||{c:0,w:0,u:0,sc:0};const a=ans[k];
+  if(a===undefined)b.u++;else if(a===q.a){b.c++;b.sc+=D.pos}else{b.w++;b.sc-=D.neg}});
+ Object.values(by).forEach(b=>sc+=b.sc);sc=Math.round(sc*100)/100;const max=Q.length*D.pos;
+ try{localStorage.setItem(KEY,JSON.stringify({score:sc,max,date:new Date().toISOString().slice(0,10)}))}catch(e){}
+ app.innerHTML=`<div class="card"><h1>Result — ${esc(D.title)}</h1><div class="big">${sc} <span class="mut" style="font-size:1rem">/ ${max}</span></div>
+ <div class="row"><a href="student-dashboard.html">Back to dashboard</a></div></div>
+ <h2>Section-wise</h2><div class="card"><table><tr><th>Section</th><th>Score</th><th>Correct</th><th>Wrong</th><th>Skipped</th></tr>
+ ${Object.entries(by).map(([s,b])=>`<tr><td>${esc(s)}</td><td>${Math.round(b.sc*100)/100}</td><td class="ok">${b.c}</td><td class="bad">${b.w}</td><td class="mut">${b.u}</td></tr>`).join("")}</table></div>
+ <h2>Review</h2>${Q.map((q,k)=>`<div class="card" style="margin-bottom:8px"><p><b>${k+1}. ${esc(q.q)}</b></p>
+ <p class="${ans[k]===q.a?"ok":"bad"}">Your answer: ${ans[k]===undefined?"Not attempted":esc(q.o[ans[k]])}</p><p class="ok">Correct: ${esc(q.o[q.a])}</p><p class="mut">${esc(q.e||"")}</p></div>`).join("")}`;
+}
+app.addEventListener("click",e=>{
+ const b=e.target.closest("button");if(!b||!D||!left)return;const d=b.dataset;
+ if(d.o!==undefined){ans[i]=+d.o;return draw()}
+ if(d.q!==undefined){i=+d.q;return draw()}
+ if(d.sec){i=Q.findIndex(x=>x.s===d.sec);return draw()}
+ if(d.a==="nxt"&&i<Q.length-1)i++;
+ if(d.a==="prev"&&i>0)i--;
+ if(d.a==="clr")delete ans[i];
+ if(d.a==="mk")mark[i]=!mark[i];
+ if(d.a==="sub"){if(confirm("Submit the test now?"))finish();return}
+ if(d.a)draw();
+});
+</script></body></html>
